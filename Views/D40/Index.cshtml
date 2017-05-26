@@ -1,0 +1,176 @@
+﻿@model IEnumerable<D40.Models.D40>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Upload File</h2>
+
+@using (Html.BeginForm("Index", "D40", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="form-group">
+        <input type="file" id="dataFile" name="upload" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Upload" class="btn btn-default" />
+    </div> 
+}
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Record_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Asset_Tag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Asset_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Serial_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BB_Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Refresh_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seat_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HHS_Billing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpDiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffDiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Office)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Last_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Site_Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Floor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Room)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lumension_Report_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lumension_Login_User)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Record_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asset_Tag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asset_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Serial_Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BB_Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Refresh_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seat_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Level)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HHS_Billing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpDiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffDiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Office)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Last_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.First_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Site_Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Floor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Room)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lumension_Report_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lumension_Computer_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lumension_Login_User)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
