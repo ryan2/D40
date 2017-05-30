@@ -53,11 +53,38 @@ namespace D40.Controllers
                     }
 
                     reader.IsFirstRowAsColumnNames = true;
-
                     DataSet result = reader.AsDataSet();
+                    DataTable dt = result.Tables[0];
+                    for (int i = 0;i < dt.Rows.Count; i++){
+                        Models.D40 entry = new Models.D40();
+                        entry.Category = (string) dt.Rows[i][0];
+                        entry.Record_ID = System.DBNull.Value.Equals(dt.Rows[i][1]) ? 0 : (int)((Double)dt.Rows[i][1]);
+                        entry.Asset_Tag = (string) dt.Rows[i][2];
+                        entry.Asset_status = (string)dt.Rows[i][3];
+                        entry.Serial_Number = (string)dt.Rows[i][4];
+                        entry.BB_Phone = System.DBNull.Value.Equals(dt.Rows[i][5]) ? "" : (string)dt.Rows[i][5];
+                        entry.Refresh_Date = (DateTime)dt.Rows[i][6];
+                        entry.Model = (string)dt.Rows[i][7];
+                        entry.Seat_Type = (string)dt.Rows[i][8];
+                        entry.Service_Level = (string)dt.Rows[i][9];
+                        entry.HHS_Billing = (string)dt.Rows[i][10];
+                        entry.OpDiv = (string)dt.Rows[i][11];
+                        entry.StaffDiv = (string)dt.Rows[i][12];
+                        entry.Office = (string)dt.Rows[i][13];
+                        entry.Last_Name = (string)dt.Rows[i][14];
+                        entry.First_Name = (string)dt.Rows[i][15];
+                        entry.Site_Address = (string)dt.Rows[i][16];
+                        entry.Floor = System.DBNull.Value.Equals(dt.Rows[i][17]) ? "" : (string)dt.Rows[i][17];
+                        entry.Room = (string)dt.Rows[i][18];
+                        entry.Lumension_Report_Date = System.DBNull.Value.Equals(dt.Rows[i][19]) ? null : (DateTime?)Convert.ToDateTime(dt.Rows[i][19]);
+                        entry.Lumension_Computer_Name = System.DBNull.Value.Equals(dt.Rows[i][20]) ? "" : (String)dt.Rows[i][20];
+                        entry.Lumension_Login_User = System.DBNull.Value.Equals(dt.Rows[i][21]) ? "" : (String)dt.Rows[i][21];
+                        db.D40.Add(entry);
+                    }
+                    db.SaveChanges();
                     reader.Close();
-
-                    return View(result.Tables[0]);
+                  
+                    return View(db.D40.ToList());
                 }
                 else
                 {

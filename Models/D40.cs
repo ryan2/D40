@@ -14,7 +14,7 @@ namespace D40.Models
         public string Asset_Tag { get; set; }
         public string Asset_status { get; set; }
         public string Serial_Number { get; set; }
-        public int BB_Phone { get; set; }
+        public string BB_Phone { get; set; }
         public DateTime Refresh_Date { get; set; }
         public string Model { get; set; }
         public string Seat_Type { get; set; }
@@ -28,7 +28,7 @@ namespace D40.Models
         public string Site_Address { get; set; }
         public string Floor { get; set; }
         public string Room { get; set; }
-        public DateTime Lumension_Report_Date { get; set; }
+        public Nullable<DateTime> Lumension_Report_Date { get; set; }
         public string Lumension_Computer_Name { get; set; }
         public string Lumension_Login_User { get; set; }
     }
