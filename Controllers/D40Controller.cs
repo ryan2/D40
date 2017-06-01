@@ -19,12 +19,17 @@ namespace D40.Controllers
         // GET: D40
         public ActionResult Index()
         {
+            ViewBag.Show = false;
             return View(db.D40.ToList());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(HttpPostedFileBase upload)
         {
+            ViewBag.Show = false;
+            ViewBag.newEntry = new List<Models.D40>();
+            ViewBag.modEntry = new Dictionary<Models.D40,Models.D40>();
+
             if (ModelState.IsValid)
             {
 
@@ -55,11 +60,12 @@ namespace D40.Controllers
                     reader.IsFirstRowAsColumnNames = true;
                     DataSet result = reader.AsDataSet();
                     DataTable dt = result.Tables[0];
+                    ViewBag.Show = true;
                     for (int i = 0;i < dt.Rows.Count; i++){
                         Models.D40 entry = new Models.D40();
                         entry.Category = (string) dt.Rows[i][0];
                         entry.Record_ID = System.DBNull.Value.Equals(dt.Rows[i][1]) ? 0 : (int)((Double)dt.Rows[i][1]);
-                        entry.Asset_Tag = (string) dt.Rows[i][2];
+                        entry.Asset_Tag = (string)dt.Rows[i][2];
                         entry.Asset_status = (string)dt.Rows[i][3];
                         entry.Serial_Number = (string)dt.Rows[i][4];
                         entry.BB_Phone = System.DBNull.Value.Equals(dt.Rows[i][5]) ? "" : (string)dt.Rows[i][5];
@@ -79,7 +85,18 @@ namespace D40.Controllers
                         entry.Lumension_Report_Date = System.DBNull.Value.Equals(dt.Rows[i][19]) ? null : (DateTime?)Convert.ToDateTime(dt.Rows[i][19]);
                         entry.Lumension_Computer_Name = System.DBNull.Value.Equals(dt.Rows[i][20]) ? "" : (String)dt.Rows[i][20];
                         entry.Lumension_Login_User = System.DBNull.Value.Equals(dt.Rows[i][21]) ? "" : (String)dt.Rows[i][21];
+                        Models.D40 d40 = db.D40.SingleOrDefault(x => x.Asset_Tag == entry.Asset_Tag);
+                        if (d40 != null)
+                        {
+                            if (d40.Equals(entry))
+                            {
+                                continue;
+                            }
+                            ViewBag.modEntry.Add(d40, entry);
+                            continue;
+                        }
                         db.D40.Add(entry);
+                        ViewBag.newEntry.add(entry);
                     }
                     db.SaveChanges();
                     reader.Close();
@@ -91,7 +108,7 @@ namespace D40.Controllers
                     ModelState.AddModelError("File", "Please Upload Your file");
                 }
             }
-            return View();
+            return View(db.D40.ToList());
         }
 
         // GET: D40/Details/5

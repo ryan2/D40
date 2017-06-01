@@ -31,6 +31,29 @@ namespace D40.Models
         public Nullable<DateTime> Lumension_Report_Date { get; set; }
         public string Lumension_Computer_Name { get; set; }
         public string Lumension_Login_User { get; set; }
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as D40);
+        }
+        public bool Equals(D40 d40)
+        {
+            Type typeA = this.GetType();
+            System.Reflection.PropertyInfo[] properties = typeA.GetProperties();
+            foreach (System.Reflection.PropertyInfo propertyInfo in properties)
+            {
+                bool IDD = (propertyInfo == typeA.GetProperty("ID"));
+                if (IDD){
+                    continue;
+                }
+                object obj1 = propertyInfo.GetValue(this);
+                object obj2 = propertyInfo.GetValue(d40);
+                bool same = (obj1 == null) ? (obj2== null) : obj1.Equals(obj2);
+                if (!same){
+                    return false;
+                }
+            }
+            return true;
+        }
     }
     public class D40DBContext : DbContext
     {

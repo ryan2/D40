@@ -1,0 +1,81 @@
+﻿/*-------------------------------------------------------------------------*/
+/*	# LESS GLOBAL SETTING
+/*-------------------------------------------------------------------------*/
+body {
+    font-family: "Open Sans", sans-serif;
+
+}
+
+.navbar {
+    /*background: url("../images/bg9.jpg") repeat-x;
+    padding: 0px;*/
+    height:50px;
+}
+
+
+    .navbar img {
+    }
+
+.scrolldiv {
+    overflow: scroll;
+    right: 10px;
+    left: 10px;
+    bottom: 10px;
+    padding-right: 10px;
+    top: 10px;
+    height:70vh;
+}
+
+
+.selected .panel-heading  {
+    
+}
+
+.selected-sub {
+    background:red;
+}
+
+.aspe-blue{
+    background:#10529c;
+}
+
+.aspe-logo-image{
+    
+    margin-top:-10px;
+    margin-right:5px;
+}
+
+.aspe-logo-text:hover
+{
+    color:#fff;
+}
+
+.navbar-inverse .navbar-brand
+{
+    color:#fff;
+}
+
+.navbar-inverse .navbar-nav > li > a 
+{
+    color:#fff;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover
+{
+    color:#fff;
+}
+
+.navbar-inverse .navbar-nav > li > a:visited
+{
+    color:#fff;
+}
+
+.nav > li > a:focus, .nav > li > a:hover
+{
+    color:#fff;
+}
+
+.navbar-inverse
+{
+    border-color:#073466;
+}
