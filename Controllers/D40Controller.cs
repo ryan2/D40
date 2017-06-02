@@ -26,9 +26,10 @@ namespace D40.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(HttpPostedFileBase upload)
         {
-            ViewBag.Show = false;
+            ViewBag.Show = true;
             ViewBag.newEntry = new List<Models.D40>();
             ViewBag.modEntry = new Dictionary<Models.D40,Models.D40>();
+            int diff = 0;
 
             if (ModelState.IsValid)
             {
@@ -54,7 +55,8 @@ namespace D40.Controllers
                     else
                     {
                         ModelState.AddModelError("File", "This file format is not supported");
-                        return View();
+                        ViewBag.Show = false;
+                        return View(db.D40.ToList());
                     }
 
                     reader.IsFirstRowAsColumnNames = true;
@@ -93,19 +95,26 @@ namespace D40.Controllers
                                 continue;
                             }
                             ViewBag.modEntry.Add(d40, entry);
+                            diff++;
                             continue;
                         }
                         db.D40.Add(entry);
-                        ViewBag.newEntry.add(entry);
+                        ViewBag.newEntry.Add(entry);
+                        diff++;
                     }
                     db.SaveChanges();
                     reader.Close();
+                    if (diff == 0)
+                    {
+                        ViewBag.show = false;
+                    }
                   
                     return View(db.D40.ToList());
                 }
                 else
                 {
                     ModelState.AddModelError("File", "Please Upload Your file");
+                    ViewBag.Show = false;
                 }
             }
             return View(db.D40.ToList());

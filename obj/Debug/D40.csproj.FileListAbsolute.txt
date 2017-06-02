@@ -70,7 +70,5 @@ c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\obj\Debug\D40.
 c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\bin\Excel.dll
 c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\bin\ICSharpCode.SharpZipLib.dll
 c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\bin\Excel.pdb
-C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.InitialCreate.resources
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.server.resources
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.csproj.GenerateResource.Cache
-C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.nullables.resources
-C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.BBtoString.resources

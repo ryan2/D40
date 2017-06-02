@@ -11,6 +11,7 @@
     <WebStackScaffolding_DbContextTypeFullName>D40.Models.D40DBContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
     <ProjectView>ShowAllFiles</ProjectView>
+    <NameOfLastUsedPublishProfile>D40</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

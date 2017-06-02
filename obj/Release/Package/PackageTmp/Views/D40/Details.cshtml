@@ -1,0 +1,194 @@
+﻿@model D40.Models.D40
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>D40</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Record_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Record_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asset_Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asset_Tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asset_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asset_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Serial_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Serial_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BB_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BB_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Refresh_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Refresh_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seat_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HHS_Billing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HHS_Billing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpDiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpDiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffDiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffDiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Office)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Office)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Last_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.First_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.First_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Site_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Site_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Floor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Floor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Room)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lumension_Report_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lumension_Report_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lumension_Computer_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lumension_Login_User)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lumension_Login_User)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

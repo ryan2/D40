@@ -182,17 +182,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705261740304_InitialCreate.cs" />
-    <Compile Include="Migrations\201705261740304_InitialCreate.Designer.cs">
-      <DependentUpon>201705261740304_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705301937480_nullables.cs" />
-    <Compile Include="Migrations\201705301937480_nullables.Designer.cs">
-      <DependentUpon>201705301937480_nullables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705302024069_BBtoString.cs" />
-    <Compile Include="Migrations\201705302024069_BBtoString.Designer.cs">
-      <DependentUpon>201705302024069_BBtoString.cs</DependentUpon>
+    <Compile Include="Migrations\201706021820051_server.cs" />
+    <Compile Include="Migrations\201706021820051_server.Designer.cs">
+      <DependentUpon>201706021820051_server.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -220,6 +212,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\aspelogo.zip" />
     <Content Include="Content\aspe_logo.psd" />
+    <None Include="Properties\PublishProfiles\D40.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -284,14 +277,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705261740304_InitialCreate.resx">
-      <DependentUpon>201705261740304_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705301937480_nullables.resx">
-      <DependentUpon>201705301937480_nullables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705302024069_BBtoString.resx">
-      <DependentUpon>201705302024069_BBtoString.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706021820051_server.resx">
+      <DependentUpon>201706021820051_server.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
