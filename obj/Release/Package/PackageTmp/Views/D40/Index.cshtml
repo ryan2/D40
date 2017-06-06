@@ -19,11 +19,12 @@
         <input type="submit" value="Upload" class="btn btn-default" />
     </div>
 }
-<button class="hide1">Toggle Main Table</button>
-<button class="scroll">Toggle Scroll Window</button>
+<button class="hide1 btn btn-default">Toggle Main Table</button>
+<button class="scroll btn btn-default">Toggle Scroll Window</button>
+@Html.ActionLink("Clear Database", "Clear")
 
 
-<h2>Index</h2>
+<h2>Entries</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -193,6 +194,9 @@
 @{ if (ViewBag.show == true)
     {
         <h2>Changed Entries</h2>
+        using (Html.BeginForm("Update", "D40", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 <div class="scrolldiv t">
     <table class="table table-bordered table-striped table-condensed">
         <thead>
@@ -266,78 +270,82 @@
                 </th>
             </tr>
         </thead>
-        @{ int x = 1;}
+        @{ int x = 0;
+           List<D40.Models.D40> mod = new List<D40.Models.D40>();}
         <tbody>
-            @foreach (KeyValuePair<D40.Models.D40,D40.Models.D40> item in ViewBag.modEntry)
+            @foreach (KeyValuePair<D40.Models.D40, D40.Models.D40> item in ViewBag.modEntry)
             {
                 <tr>
-                    <td>@x</td>
+                    @{mod.Add(item.Key);
+                    }
                     @{ x++;}
+                    <td>@x</td>
                     <td>
-                        @item.Key.Category, @item.Value.Category
+                        @Html.Hidden((string)"mod[" + (x - 1) + "].ID", item.Key.ID)
+                        @item.Key.Category => @Html.TextBox((string)"mod[" + (x - 1) + "].Category", item.Value.Category)
                     </td>
                     <td>
-                        @item.Key.Record_ID, @item.Value.Record_ID
+                        @item.Key.Record_ID => @Html.TextBox((string)"mod[" + (x - 1) + "].Record_ID", item.Value.Record_ID)
                     </td>
                     <td>
-                        @item.Key.Asset_Tag, @item.Value.Asset_Tag
+                        @item.Key.Asset_Tag => @Html.TextBox((string)"mod[" + (x - 1) + "].Asset_Tag", item.Value.Asset_Tag)
                     </td>
                     <td>
-                        @item.Key.Asset_status, @item.Value.Asset_status
+                        @item.Key.Asset_status => @Html.TextBox((string)"mod[" + (x - 1) + "].Asset_status", item.Value.Asset_status)
                     </td>
                     <td>
-                        @item.Key.Serial_Number, @item.Value.Serial_Number
+                        @item.Key.Serial_Number => @Html.TextBox((string)"mod[" + (x - 1) + "].Serial_Number", item.Value.Serial_Number)
                     </td>
                     <td>
-                        @item.Key.BB_Phone, @item.Value.BB_Phone
+                        @item.Key.BB_Phone => @Html.TextBox((string)"mod[" + (x - 1) + "].BB_Phone", item.Value.BB_Phone)
                     </td>
                     <td>
-                        @item.Key.Refresh_Date, @item.Value.Refresh_Date
+                        @item.Key.Refresh_Date => @Html.TextBox((string)"mod[" + (x - 1) + "].Refresh_Date", item.Value.Refresh_Date)
                     </td>
                     <td>
-                        @item.Key.Model, @item.Value.Model
+                        @item.Key.Model => @Html.TextBox((string)"mod[" + (x - 1) + "].Model", item.Value.Model)
                     </td>
                     <td>
-                        @item.Key.Seat_Type, @item.Value.Seat_Type
+                        @item.Key.Seat_Type => @Html.TextBox((string)"mod[" + (x - 1) + "].Seat_Type", item.Value.Seat_Type)
                     </td>
                     <td>
-                        @item.Key.Service_Level, @item.Value.Service_Level
+                        @item.Key.Service_Level => @Html.TextBox((string)"mod[" + (x - 1) + "].Service_Level", item.Value.Service_Level)
                     </td>
                     <td>
-                        @item.Key.HHS_Billing, @item.Value.HHS_Billing
+                        @item.Key.HHS_Billing => @Html.TextBox((string)"mod[" + (x - 1) + "].HHS_Billing", item.Value.HHS_Billing)
                     </td>
                     <td>
-                        @item.Key.OpDiv, @item.Value.OpDiv
+                        @item.Key.OpDiv => @Html.TextBox((string)"mod[" + (x - 1) + "].OpDiv", item.Value.OpDiv)
                     </td>
                     <td>
-                        @item.Key.StaffDiv, @item.Value.StaffDiv
+                        @item.Key.StaffDiv => @Html.TextBox((string)"mod[" + (x - 1) + "].StaffDiv", item.Value.StaffDiv)
                     </td>
                     <td>
-                        @item.Key.Office, @item.Value.Office
+                        @item.Key.Office => @Html.TextBox((string)"mod[" + (x - 1) + "].Office", item.Value.Office)
                     </td>
                     <td>
-                        @item.Key.Last_Name, @item.Value.Last_Name
+                        @item.Key.Last_Name => @Html.TextBox((string)"mod[" + (x - 1) + "].Last_Name", item.Value.Last_Name)
                     </td>
                     <td>
-                        @item.Key.First_Name, @item.Value.First_Name
+                        @item.Key.First_Name => @Html.TextBox((string)"mod[" + (x - 1) + "].First_Name", item.Value.First_Name)
                     </td>
                     <td>
-                        @item.Key.Site_Address, @item.Value.Site_Address
+                        @item.Key.Site_Address => @Html.TextBox((string)"mod[" + (x - 1) + "].Site_Address", item.Value.Site_Address)
                     </td>
                     <td>
-                        @item.Key.Floor, @item.Value.Floor
+                        @item.Key.Floor => @Html.TextBox((string)"mod[" + (x - 1) + "].Floor", item.Value.Floor)
                     </td>
                     <td>
-                        @item.Key.Room, @item.Value.Room
+                        @item.Key.Room => @Html.TextBox((string)"mod[" + (x - 1) + "].Room", item.Value.Room)
                     </td>
                     <td>
-                       @item.Key.Lumension_Report_Date, @item.Value.Lumension_Report_Date
+                       @item.Key.Lumension_Report_Date => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Report_Date", item.Value.Lumension_Report_Date)
                     </td>
                     <td>
-                        @item.Key.Lumension_Computer_Name, @item.Value.Lumension_Computer_Name
+                        @item.Key.Lumension_Computer_Name => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Computer_Name", item.Value.Lumension_Computer_Name)
                     </td>
                     <td>
-                        @item.Key.Lumension_Login_User, @item.Value.Lumension_Login_User
+                        @item.Key.Lumension_Login_User => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Login_User", item.Value.Lumension_Login_User)
                     </td>
                 </tr>
                         }
@@ -419,85 +427,96 @@
                 <th></th>
             </tr>
         </thead>
-        @{ x = 1;}
+        @{ x = 0;
+            List<D40.Models.D40> cat = ViewBag.newEntry;
+        }
         <tbody>
-            @foreach (var item in ViewBag.newEntry)
+            @foreach (D40.Models.D40 item in cat)
             {
                 <tr>
-                    <td>@x</td>
                     @{ x++;}
+                    <td>@x</td>
                     <td>
-                        @item.Category
+
+                        @Html.Hidden((string)"cat[" + (x - 1) + "].ID", item.ID)
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Category", item.Category)
                     </td>
                     <td>
-                        @item.Record_ID
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Record_ID", item.Record_ID)
                     </td>
                     <td>
-                        @item.Asset_Tag
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Asset_Tag", item.Asset_Tag)
                     </td>
                     <td>
-                        @item.Asset_status
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Asset_status", item.Asset_status)
                     </td>
                     <td>
-                        @item.Serial_Number
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Serial_Number", item.Serial_Number)
                     </td>
                     <td>
-                       @item.BB_Phone
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].BB_Phone", item.BB_Phone)
                     </td>
                     <td>
-                        @item.Refresh_Date
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Refresh_Date", item.Refresh_Date)
                     </td>
                     <td>
-                        @item.Model
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Model", item.Model)
                     </td>
                     <td>
-                        @item.Seat_Type
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Seat_Type", item.Seat_Type)
                     </td>
                     <td>
-                        @item.Service_Level
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Service_Level", item.Service_Level)
                     </td>
                     <td>
-                        @item.HHS_Billing
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].HHS_Billing", item.HHS_Billing)
                     </td>
                     <td>
-                        @item.OpDiv
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].OpDiv", item.OpDiv)
                     </td>
                     <td>
-                       @item.StaffDiv
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].StaffDiv", item.StaffDiv)
                     </td>
                     <td>
-                        @item.Office
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Office", item.Office)
                     </td>
                     <td>
-                        @item.Last_Name
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Last_Name", item.Last_Name)
                     </td>
                     <td>
-                        @item.First_Name
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].First_Name", item.First_Name)
                     </td>
                     <td>
-                        @item.Site_Address
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Site_Address", item.Site_Address)
                     </td>
                     <td>
-                        @item.Floor
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Floor", item.Floor)
                     </td>
                     <td>
-                        @item.Room
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Room", item.Room)
                     </td>
                     <td>
-                        @item.Lumension_Report_Date
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Lumension_Report_Date", item.Lumension_Report_Date)
                     </td>
                     <td>
-                        @item.Lumension_Computer_Name
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Lumension_Computer_Name", item.Lumension_Computer_Name)
                     </td>
                     <td>
-                        @item.Lumension_Login_User
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Lumension_Login_User", item.Lumension_Login_User)
                     </td>
                 </tr>
 
                         }
         </tbody>
             </table>
+
     </div>
-    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+                        }
+}
 }
 

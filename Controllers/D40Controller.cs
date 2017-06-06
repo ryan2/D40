@@ -70,9 +70,10 @@ namespace D40.Controllers
                         entry.Asset_Tag = (string)dt.Rows[i][2];
                         entry.Asset_status = (string)dt.Rows[i][3];
                         entry.Serial_Number = (string)dt.Rows[i][4];
-                        entry.BB_Phone = System.DBNull.Value.Equals(dt.Rows[i][5]) ? "" : (string)dt.Rows[i][5];
-                        entry.Refresh_Date = (DateTime)dt.Rows[i][6];
-                        entry.Model = (string)dt.Rows[i][7];
+                        entry.BB_Phone = System.DBNull.Value.Equals(dt.Rows[i][5]) ? null : (string)dt.Rows[i][5];
+                        bool two = System.DBNull.Value.Equals(dt.Rows[i][6]);
+                        entry.Refresh_Date = two ? new DateTime(2000,1,1) : (DateTime)dt.Rows[i][6];
+                        entry.Model = System.DBNull.Value.Equals(dt.Rows[i][7]) ? null : (string)dt.Rows[i][7];
                         entry.Seat_Type = (string)dt.Rows[i][8];
                         entry.Service_Level = (string)dt.Rows[i][9];
                         entry.HHS_Billing = (string)dt.Rows[i][10];
@@ -82,12 +83,12 @@ namespace D40.Controllers
                         entry.Last_Name = (string)dt.Rows[i][14];
                         entry.First_Name = (string)dt.Rows[i][15];
                         entry.Site_Address = (string)dt.Rows[i][16];
-                        entry.Floor = System.DBNull.Value.Equals(dt.Rows[i][17]) ? "" : (string)dt.Rows[i][17];
+                        entry.Floor = System.DBNull.Value.Equals(dt.Rows[i][17]) ? null : (string)dt.Rows[i][17];
                         entry.Room = (string)dt.Rows[i][18];
                         entry.Lumension_Report_Date = System.DBNull.Value.Equals(dt.Rows[i][19]) ? null : (DateTime?)Convert.ToDateTime(dt.Rows[i][19]);
-                        entry.Lumension_Computer_Name = System.DBNull.Value.Equals(dt.Rows[i][20]) ? "" : (String)dt.Rows[i][20];
-                        entry.Lumension_Login_User = System.DBNull.Value.Equals(dt.Rows[i][21]) ? "" : (String)dt.Rows[i][21];
-                        Models.D40 d40 = db.D40.SingleOrDefault(x => x.Asset_Tag == entry.Asset_Tag);
+                        entry.Lumension_Computer_Name = System.DBNull.Value.Equals(dt.Rows[i][20]) ? null : (String)dt.Rows[i][20];
+                        entry.Lumension_Login_User = System.DBNull.Value.Equals(dt.Rows[i][21]) ? null : (String)dt.Rows[i][21];
+                        Models.D40 d40 = db.D40.SingleOrDefault(x => x.Asset_Tag == entry.Asset_Tag && x.Category == entry.Category);
                         if (d40 != null)
                         {
                             if (d40.Equals(entry))
@@ -98,7 +99,7 @@ namespace D40.Controllers
                             diff++;
                             continue;
                         }
-                        db.D40.Add(entry);
+                        //db.D40.Add(entry);
                         ViewBag.newEntry.Add(entry);
                         diff++;
                     }
@@ -118,6 +119,39 @@ namespace D40.Controllers
                 }
             }
             return View(db.D40.ToList());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(List<D40.Models.D40> mod, List<D40.Models.D40> cat)
+        {
+            if (mod!= null)
+            {
+                foreach (D40.Models.D40 entry in mod)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(entry).State = EntityState.Modified;
+                    }
+                }
+            }
+            if (cat != null) { 
+                foreach (D40.Models.D40 entry in cat)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.D40.Add(entry);
+                    }
+            }
+        }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Clear()
+        {
+            var context = from c in db.D40 select c;
+            db.D40.RemoveRange(context);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: D40/Details/5

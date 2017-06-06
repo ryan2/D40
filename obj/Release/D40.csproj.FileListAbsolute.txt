@@ -71,3 +71,4 @@ C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D4
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.csproj.GenerateResource.Cache
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.dll
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.pdb
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.csprojResolveAssemblyReference.cache

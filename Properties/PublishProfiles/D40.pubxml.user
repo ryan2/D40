@@ -6,14 +6,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\ryan.ricks\Documents\D40</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\ryan.ricks\Documents\D40Test</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>05/26/2017 11:30:33</publishTime>
     </File>
     <File Include="bin/D40.dll">
-      <publishTime>06/02/2017 14:24:21</publishTime>
+      <publishTime>06/06/2017 16:39:10</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/26/2017 11:30:36</publishTime>
@@ -280,7 +280,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 13:29:09</publishTime>
     </File>
     <File Include="Views/D40/Index.cshtml">
-      <publishTime>06/02/2017 13:18:06</publishTime>
+      <publishTime>06/06/2017 16:42:59</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/26/2017 11:30:19</publishTime>

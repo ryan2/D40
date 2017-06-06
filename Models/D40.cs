@@ -47,6 +47,13 @@ namespace D40.Models
                 }
                 object obj1 = propertyInfo.GetValue(this);
                 object obj2 = propertyInfo.GetValue(d40);
+                bool hi = (obj2 is string);
+                if (hi)
+                {
+                    string str = (string)obj2;
+                    string replacement = System.Text.RegularExpressions.Regex.Replace(str, @"\t|\n|\r", "");
+                    obj2 = replacement;
+                }
                 bool same = (obj1 == null) ? (obj2== null) : obj1.Equals(obj2);
                 if (!same){
                     return false;
