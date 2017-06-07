@@ -17,10 +17,22 @@ namespace D40.Controllers
         private D40DBContext db = new D40DBContext();
 
         // GET: D40
-        public ActionResult Index()
+        public ActionResult Index(string catList, string searchString)
         {
+            ViewBag.search = searchString;
+            var categoryList = new List<string>(4) { "Computer", "Phone", "Printer", "Phone Services" };
+            ViewBag.catList = new SelectList(categoryList, catList);
             ViewBag.Show = false;
-            return View(db.D40.ToList());
+            var entries = from t in db.D40 select t;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                entries = entries.Where(s => s.First_Name.Contains(searchString) || s.Last_Name.Contains(searchString) || s.Asset_Tag.Contains(searchString) || (s.First_Name + " " + s.Last_Name).Contains(searchString));
+            }
+            if (!String.IsNullOrEmpty(catList))
+            {
+                entries = entries.Where(s => s.Category.Contains(catList));
+            }
+            return View(entries.ToList());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,6 +74,7 @@ namespace D40.Controllers
                     reader.IsFirstRowAsColumnNames = true;
                     DataSet result = reader.AsDataSet();
                     DataTable dt = result.Tables[0];
+                    List<D40.Models.D40> del = db.D40.ToList();
                     ViewBag.Show = true;
                     for (int i = 0;i < dt.Rows.Count; i++){
                         Models.D40 entry = new Models.D40();
@@ -93,9 +106,11 @@ namespace D40.Controllers
                         {
                             if (d40.Equals(entry))
                             {
+                                del.Remove(d40);
                                 continue;
                             }
                             ViewBag.modEntry.Add(d40, entry);
+                            del.Remove(d40);
                             diff++;
                             continue;
                         }
@@ -103,11 +118,13 @@ namespace D40.Controllers
                         ViewBag.newEntry.Add(entry);
                         diff++;
                     }
-                    db.SaveChanges();
+                    ViewBag.del = del;
                     reader.Close();
                     if (diff == 0)
                     {
                         ViewBag.show = false;
+                        var categoryList = new List<string>(4) { "Computer", "Phone", "Printer", "Phone Services" };
+                        ViewBag.catList = new SelectList(categoryList);
                     }
                   
                     return View(db.D40.ToList());
@@ -122,7 +139,7 @@ namespace D40.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(List<D40.Models.D40> mod, List<D40.Models.D40> cat)
+        public ActionResult Update(List<D40.Models.D40> mod, List<D40.Models.D40> cat, List<D40.Models.D40> del)
         {
             if (mod!= null)
             {
@@ -143,6 +160,14 @@ namespace D40.Controllers
                     }
             }
         }
+            if (del != null)
+            {
+                foreach (D40.Models.D40 entry in del)
+                {
+                    db.D40.Attach(entry);
+                    db.D40.Remove(entry);
+                }
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

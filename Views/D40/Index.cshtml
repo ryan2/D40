@@ -27,10 +27,19 @@
 <h2>Entries</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Entry", "Create")
 </p>
+
 @{if (ViewBag.show == false)
     {
+        using (Html.BeginForm("Index", "D40", FormMethod.Get))
+        {
+            <p>
+                Search Asset Tag or Name: @Html.TextBox("SearchString", (string)ViewBag.search)
+                Category: @Html.DropDownList("catList", "All")
+                <input type="submit" value="Search" class="btn btn-default" />
+            </p>
+        }
         <div class="scrolldiv t1 t" style="display:none;">
             <table class="table table-bordered table-striped table-condensed">
                 <thead>
@@ -511,12 +520,172 @@
             </table>
 
     </div>
+    <h2>Removed Entries</h2>
+    <div class="scrolldiv t">
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr style="background-color:#d9edf7">
+                    <th>Row</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Record_ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Asset_Tag)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Asset_status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Serial_Number)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BB_Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Refresh_Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Model)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Seat_Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Service_Level)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HHS_Billing)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.OpDiv)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffDiv)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Office)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Last_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.First_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Site_Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Floor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Room)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lumension_Report_Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lumension_Login_User)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @{ x = 0;
+                List<D40.Models.D40> del = ViewBag.del;
+            }
+            <tbody>
+                @foreach (D40.Models.D40 item in del)
+                {
+                    <tr>
+                        @{ x++;}
+                        <td>@x</td>
+                        <td>
+
+                            @Html.Hidden((string)"del[" + (x - 1) + "].ID", item.ID)
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Category", item.Category, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Record_ID", item.Record_ID, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Asset_Tag", item.Asset_Tag, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Asset_status", item.Asset_status, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Serial_Number", item.Serial_Number, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].BB_Phone", item.BB_Phone, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Refresh_Date", item.Refresh_Date, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Model", item.Model, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Seat_Type", item.Seat_Type, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Service_Level", item.Service_Level, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].HHS_Billing", item.HHS_Billing, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].OpDiv", item.OpDiv, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].StaffDiv", item.StaffDiv, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Office", item.Office, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Last_Name", item.Last_Name, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].First_Name", item.First_Name, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Site_Address", item.Site_Address, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Floor", item.Floor, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Room", item.Room, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Lumension_Report_Date", item.Lumension_Report_Date, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Lumension_Computer_Name", item.Lumension_Computer_Name, new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Lumension_Login_User", item.Lumension_Login_User, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+
+                            }
+            </tbody>
+        </table>
+
+    </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div>
             <input type="submit" value="Save" class="btn btn-default" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
         </div>
     </div>
+                            }
                         }
-}
 }
 
