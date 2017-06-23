@@ -63,10 +63,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jqueryfloat")
     <script>
     $(document).ready(function () {
         $(".hide1").click(function () {
             $(".t1").toggle();
+            $(".floatThead-container").toggle();
         });
     });
     $(document).ready(function () {
@@ -82,6 +84,21 @@
     $(document).ready(function () {
         $(".scroll").click(function () {
             $(".t").toggleClass("scrolldiv")
+            $(".table").toggleClass("inner window")
+        });
+    });
+    $(document).ready(function () {
+        $('.inner').floatThead({
+            position: 'absolute',
+            scrollContainer: true
+        });
+    });
+    $(document).ready(function () {
+        $('.window').floatThead({
+            position: 'absolute'
+        });
+        $('.window').click(function () {
+            $(this).parent().css("overflow","visible")
         });
     });
     </script>

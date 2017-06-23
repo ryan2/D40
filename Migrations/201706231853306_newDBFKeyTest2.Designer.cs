@@ -7,13 +7,13 @@ namespace D40.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class server : IMigrationMetadata
+    public sealed partial class newDBFKeyTest2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(server));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newDBFKeyTest2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706021820051_server"; }
+            get { return "201706231853306_newDBFKeyTest2"; }
         }
         
         string IMigrationMetadata.Source

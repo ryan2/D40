@@ -6,6 +6,18 @@ using System.Data.Entity;
 
 namespace D40.Models
 {
+    public class Name
+    {
+        public int ID { get; set; }
+        public string Last_Name { get; set; }
+        public string First_Name { get; set; }
+        public bool Active { get; set; }
+        public string Office { get; set; }
+        public virtual ICollection<D40> Assets { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<SoftwareName> Software { get; set; }
+
+    }
     public class D40
     {
         public int ID { get; set; }
@@ -31,6 +43,10 @@ namespace D40.Models
         public Nullable<DateTime> Lumension_Report_Date { get; set; }
         public string Lumension_Computer_Name { get; set; }
         public string Lumension_Login_User { get; set; }
+        public DateTime Received_Date { get; set; }
+        public DateTime Returned_Date { get; set; }
+        public int NameID { get; set; }
+        public virtual Name User { get; set; }
         public override bool Equals(object obj)
         {
             return this.Equals(obj as D40);
@@ -62,8 +78,57 @@ namespace D40.Models
             return true;
         }
     }
+    public class Ticket
+    {
+        public int ID { get; set; }
+        public string Ticket_Num { get; set; }
+        public DateTime Open_Date { get; set; }
+        public DateTime Closed_Date { get; set; }
+        public string Description { get; set; }
+        public int NameID { get; set; }
+        public virtual Name User { get; set; }
+    }
+    public class Software
+    {
+        public int ID { get; set; }
+        public string title { get; set; }
+        public string license { get; set; }
+        public int num { get; set; }
+        public virtual ICollection<SoftwareName> Users { get; set; }
+    }
+    public class SoftwareName
+    {
+        public int ID { get; set; }
+        public int NameID { get; set; }
+        public int SoftwareID { get; set; }
+        public virtual Software Software { get; set; }
+        public virtual Name User { get; set; }
+
+    }
+    public class Prices
+    {
+        public static decimal C_G { get; set; }
+        public static decimal C_S { get; set; }
+        public static decimal C_P { get; set; }
+        public static decimal Ph_G { get; set; }
+        public static decimal Ph_S { get; set; }
+        public static decimal Ph_P { get; set; }
+        public static decimal Pr_S { get; set; }
+        public static decimal Pr_P { get; set; }
+        public static decimal Pr_G { get; set; }
+        public static decimal Ps_S { get; set; }
+        public static decimal Ps_P { get; set; }
+        public static decimal Ps_G { get; set; }
+
+    }
+
     public class D40DBContext : DbContext
     {
         public DbSet<D40> D40 { get; set; }
+        public DbSet<Name> Names { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Software> Software { get; set; }
+        public DbSet<SoftwareName> SoftwareNames { get; set; }
+        public Prices Prices { get; set; }
     }
 }

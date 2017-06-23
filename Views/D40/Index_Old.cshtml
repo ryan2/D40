@@ -1,4 +1,4 @@
-﻿@model IEnumerable<D40.Models.D40>
+﻿@model IEnumerable<D40.Models.Name>
 
 @{
     ViewBag.Title = "D40 List";
@@ -41,7 +41,7 @@
             </p>
         }
         <div class="scrolldiv t1 t" style="display:none;">
-            <table class="table table-bordered table-striped table-condensed">
+            <table class="table table-bordered table-striped table-condensed inner">
                 <thead>
                     <tr style="background-color:#d9edf7">
                         <th>Row</th>
@@ -140,7 +140,7 @@
                                 @Html.DisplayFor(modelItem => item.BB_Phone)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Refresh_Date)
+                                @item.Refresh_Date.ToString("MM/dd/yyyy")
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Model)
@@ -309,7 +309,7 @@
                         @item.Key.BB_Phone => @Html.TextBox((string)"mod[" + (x - 1) + "].BB_Phone", item.Value.BB_Phone)
                     </td>
                     <td>
-                        @item.Key.Refresh_Date => @Html.TextBox((string)"mod[" + (x - 1) + "].Refresh_Date", item.Value.Refresh_Date)
+                        @item.Key.Refresh_Date => @Html.TextBox((string)"mod[" + (x - 1) + "].Refresh_Date", item.Value.Refresh_Date.ToString("MM/dd/yyyy"))
                     </td>
                     <td>
                         @item.Key.Model => @Html.TextBox((string)"mod[" + (x - 1) + "].Model", item.Value.Model)
@@ -466,7 +466,7 @@
                         @Html.TextBox((string)"cat[" + (x - 1) + "].BB_Phone", item.BB_Phone)
                     </td>
                     <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Refresh_Date", item.Refresh_Date)
+                        @Html.TextBox((string)"cat[" + (x - 1) + "].Refresh_Date", item.Refresh_Date.ToString("MM/dd/yyyy"))
                     </td>
                     <td>
                         @Html.TextBox((string)"cat[" + (x - 1) + "].Model", item.Model)
@@ -625,7 +625,7 @@
                             @Html.TextBox((string)"del[" + (x - 1) + "].BB_Phone", item.BB_Phone, new { @readonly = "readonly" })
                         </td>
                         <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Refresh_Date", item.Refresh_Date, new { @readonly = "readonly" })
+                            @Html.TextBox((string)"del[" + (x - 1) + "].Refresh_Date", item.Refresh_Date.ToString("MM/dd/yyyy"), new { @readonly = "readonly" })
                         </td>
                         <td>
                             @Html.TextBox((string)"del[" + (x - 1) + "].Model", item.Model, new { @readonly = "readonly" })

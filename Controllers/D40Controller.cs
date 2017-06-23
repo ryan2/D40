@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using D40.Models;
+using D40.ViewModels;
 using Excel;
 using System.IO;
 
@@ -17,7 +18,16 @@ namespace D40.Controllers
         private D40DBContext db = new D40DBContext();
 
         // GET: D40
-        public ActionResult Index(string catList, string searchString)
+        public ActionResult Index()
+        {
+            var viewModels = new NameIndexData();
+            viewModels.Users = db.Names
+                .Include(i => i.Assets)
+                .Include(i => i.Tickets)
+                .Include(i => i.Software.Select(c => c.Software));
+            return View(viewModels);
+        }
+        public ActionResult Index_Old(string catList, string searchString)
         {
             ViewBag.search = searchString;
             var categoryList = new List<string>(4) { "Computer", "Phone", "Printer", "Phone Services" };
