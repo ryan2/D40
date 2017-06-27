@@ -3,41 +3,77 @@
 @{
     ViewBag.Title = "Index";
 }
+<h2>Upload File</h2>
 
-<h2>View</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-@foreach (var item in Model.Users)
+@using (Html.BeginForm("Index_Old", "D40", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    if (@item.Active)
-    {
-    <div class="container-fluid">
-        <h3>@item.First_Name @item.Last_Name @item.Office</h3>
-        <h4>Assets:</h4>
-        @foreach (var asset in item.Assets)
-        {
-            <p>@asset.Category</p>
-            <p>@asset.Asset_Tag</p>
-            <p>@asset.Model</p>
-            <p>@asset.Refresh_Date</p>
-            <hr />
-        }
-        <h4>Software:</h4>
-        @foreach (var software in item.Software)
-        {
-            <p>@software.Software.title</p>
-            <hr />
-        }
-        <h4>Tickets:</h4>
-        @foreach (var ticket in item.Tickets)
-        {
-            <p>@ticket.Ticket_Num</p>
-            <p>@ticket.Open_Date</p>
-            <p>@ticket.Description</p>
-            <hr />
-        }
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="form-group">
+        <input type="file" id="dataFile" name="upload" />
     </div>
-    }
+
+    <div class="form-group">
+        <input type="submit" value="Upload" class="btn btn-default" />
+    </div>
 }
+
+<h2>Employee List</h2>
+@{ int i = 1;}
+    @foreach (var item in Model.Users)
+    {
+        if (@item.Active)
+        {
+            <div>
+                <h3 style="display:inline-block">@i. @item.First_Name @item.Last_Name, @item.Office</h3><h3 class="tog closeimg"></h3>
+                <div class="test row">
+                    <div class="col-md-4">
+                    <h4>Assets (@item.Assets.Count):</h4>
+                    <ol>
+                        @foreach (var asset in item.Assets)
+                        {
+                            <li>
+                                <p>Category: @asset.Category</p>
+                                <p>Asset Tag: @asset.Asset_Tag</p>
+                                <p>Asset Model: @asset.Model</p>
+                                <p>Refresh Date: @asset.Refresh_Date.ToString("MM/dd/yyyy")</p>
+                            </li>
+                        }
+                    </ol>
+                        </div>
+                        @{ if (item.Software.Count > 0)
+                            {
+                                <div class="col-md-4">
+                                    <h4>Software (@item.Software.Count):</h4>
+                                    <ul>
+                                        @foreach (var software in item.Software)
+                                        {
+                                            <li>@software.Software.title</li>
+                                        }
+                                    </ul>
+                                    </div>
+                                    }
+                                    }
+                        @{ if (item.Tickets.Count > 0)
+                            {
+                                <div class="col-md-4">
+                                    <h4>Open Tickets (@item.Tickets.Count):</h4>
+                                    <ol>
+                                        @foreach (var ticket in item.Tickets)
+                        {
+                                            <li>
+                                                <p>Ticket Number: @ticket.Ticket_Num</p>
+                                                <p>Date Opened: @ticket.Open_Date.ToString("MM/dd/yyyy")</p>
+                                                <p>Description: @ticket.Description</p>
+                                            </li>
+                                        }
+                                    </ol>
+                                    </div>
+                                    }
+                                    }
+                                </div>
+                </div>
+        }
+        i++;
+    }

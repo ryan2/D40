@@ -1,4 +1,4 @@
-﻿@model IEnumerable<D40.Models.Name>
+﻿@model IEnumerable<D40.Models.D40>
 
 @{
     ViewBag.Title = "D40 List";
@@ -355,6 +355,7 @@
                     </td>
                     <td>
                         @item.Key.Lumension_Login_User => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Login_User", item.Value.Lumension_Login_User)
+                        @Html.Hidden((string)"mod[" + (x - 1) + "].NameID", item.Value.NameID)
                     </td>
                 </tr>
                         }
@@ -671,6 +672,7 @@
                         </td>
                         <td>
                             @Html.TextBox((string)"del[" + (x - 1) + "].Lumension_Login_User", item.Lumension_Login_User, new { @readonly = "readonly" })
+                            @Html.Hidden((string)"del[" + (x - 1) + "].NameID", item.NameID)
                         </td>
                     </tr>
 

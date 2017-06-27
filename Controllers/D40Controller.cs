@@ -46,7 +46,7 @@ namespace D40.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(HttpPostedFileBase upload)
+        public ActionResult Index_Old(HttpPostedFileBase upload)
         {
             ViewBag.Show = true;
             ViewBag.newEntry = new List<Models.D40>();
@@ -164,6 +164,17 @@ namespace D40.Controllers
             if (cat != null) { 
                 foreach (D40.Models.D40 entry in cat)
                 {
+                    Name user = db.Names.SingleOrDefault(x => x.Last_Name == entry.Last_Name && x.First_Name == entry.First_Name);
+                    if (user == null)
+                    {
+                        user = new Name();
+                        user.First_Name = entry.First_Name;
+                        user.Last_Name = entry.Last_Name;
+                        user.Active = true;
+                        db.Names.Add(user);
+                        db.SaveChanges();
+                    }
+                    entry.NameID = user.ID;
                     if (ModelState.IsValid)
                     {
                         db.D40.Add(entry);
@@ -174,8 +185,14 @@ namespace D40.Controllers
             {
                 foreach (D40.Models.D40 entry in del)
                 {
-                    db.D40.Attach(entry);
-                    db.D40.Remove(entry);
+                    int key = entry.NameID;
+                    Name user = db.Names.Find(key);
+                    if (user.Assets.Count == 1)
+                    {
+                        user.Active = false;
+                        db.Entry(user).State = EntityState.Modified;
+                    }
+                    entry.Returned_Date = DateTime.Now;
                 }
             }
             db.SaveChanges();
