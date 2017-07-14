@@ -1,0 +1,46 @@
+﻿@model IEnumerable<D40.Models.SoftwareName>
+
+@{
+    ViewBag.Title = "removeSoftware";
+}
+
+<h2>Remove Software from User</h2>
+
+<h3>Choose the software to remove from @ViewBag.user.First_Name @ViewBag.user.Last_Name.</h3>
+<div>
+    <hr />
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr style="background-color:#d9edf7">
+            <th>
+            Software
+            </th>
+
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Software.title)
+            </td>
+
+            <td>
+               @using (Html.BeginForm("removeSoftware","D40", new { id = item.ID.ToString() }))
+               {
+                @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                    <input type="submit" value="Remove" class="btn btn-default" />
+                </div>
+               }
+            </td>
+            </tr>
+            }
+        </tbody>
+        </table>
+
+    @Html.ActionLink("Back to List", "Index")
+</div>

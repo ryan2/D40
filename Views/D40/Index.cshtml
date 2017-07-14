@@ -3,21 +3,6 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Upload File</h2>
-
-@using (Html.BeginForm("Index_Old", "D40", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-
-    <div class="form-group">
-        <input type="file" id="dataFile" name="upload" />
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Upload" class="btn btn-default" />
-    </div>
-}
 
 <h2>Employee List</h2>
 @{ int i = 1;}
@@ -26,24 +11,31 @@
         if (@item.Active)
         {
             <div>
-                <h3 style="display:inline-block">@i. @item.First_Name @item.Last_Name, @item.Office</h3><h3 class="tog closeimg"></h3>
+                <h3 style="display:inline-block">@i. @item.First_Name @item.Last_Name @item.Office</h3><h3 class="tog closeimg"></h3>
                 <div class="test row">
                     <div class="col-md-4">
-                    <h4>Assets (@item.Assets.Count):</h4>
+                    @{ var obj = @item.Assets.Where(x => x.Returned_Date == null);}
+                    <h4>Assets (@obj.Count()):</h4>
                     <ol>
-                        @foreach (var asset in item.Assets)
+                        @foreach (var asset in obj)
                         {
                             <li>
                                 <p>Category: @asset.Category</p>
                                 <p>Asset Tag: @asset.Asset_Tag</p>
                                 <p>Asset Model: @asset.Model</p>
-                                <p>Refresh Date: @asset.Refresh_Date.ToString("MM/dd/yyyy")</p>
+                                @if (asset.Refresh_Date.HasValue)
+                                {
+                                <p>Refresh Date: @asset.Refresh_Date.Value.ToString("MM/dd/yyyy")</p>
+                                }
+                                <p>@Html.ActionLink("Edit", "Edit", new { id = asset.ID }) |
+                                @Html.ActionLink("View Details", "Details", new { id = asset.ID }) |
+                                @Html.ActionLink("Return", "Delete", new { id = asset.ID })</p>
                             </li>
                         }
+
                     </ol>
+                        <p>@Html.ActionLink("New Asset", "Create", new { id = item.ID })</p>
                         </div>
-                        @{ if (item.Software.Count > 0)
-                            {
                                 <div class="col-md-4">
                                     <h4>Software (@item.Software.Count):</h4>
                                     <ul>
@@ -52,26 +44,35 @@
                                             <li>@software.Software.title</li>
                                         }
                                     </ul>
+                                    @Html.ActionLink("Add Software", "addSoftware", new { id = item.ID })
+@{ if (item.Software.Count > 0)
+    {
+                                    <span>|</span> @Html.ActionLink("Remove Software", "removeSoftware", new { id = item.ID })
+    }
+    }
                                     </div>
-                                    }
-                                    }
-                        @{ if (item.Tickets.Count > 0)
-                            {
+
+                                    
                                 <div class="col-md-4">
-                                    <h4>Open Tickets (@item.Tickets.Count):</h4>
+                                    @{ var tix = @item.Tickets.Where(x => x.Closed_Date == null);}
+                                    <h4>Open Tickets (@tix.Count()):</h4>
+@{ if (tix.Count() > 0)
+    {
                                     <ol>
-                                        @foreach (var ticket in item.Tickets)
-                        {
+                                        @foreach (var ticket in tix)
+                                        {
                                             <li>
                                                 <p>Ticket Number: @ticket.Ticket_Num</p>
                                                 <p>Date Opened: @ticket.Open_Date.ToString("MM/dd/yyyy")</p>
                                                 <p>Description: @ticket.Description</p>
+                                                <p>@Html.ActionLink("Close", "closeTicket", new { id = ticket.ID })</p>
                                             </li>
                                         }
                                     </ol>
+        }
+    }
+                                    @Html.ActionLink("New Ticket", "openTicket", new { id = item.ID })
                                     </div>
-                                    }
-                                    }
                                 </div>
                 </div>
         }

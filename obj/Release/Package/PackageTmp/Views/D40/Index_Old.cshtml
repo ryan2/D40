@@ -358,8 +358,7 @@
                     </td>
                     <td>
                         @item.Key.Lumension_Login_User => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Login_User", item.Value.Lumension_Login_User)
-                        @Html.Hidden((string)"mod[" + (x - 1) + "].NameID", item.Key.NameID)
-                        @Html.Hidden((string)"mod[" + (x - 1) + "].Received_Date", DateTime.Now)
+                        @Html.Hidden((string)"mod[" + (x - 1) + "].NameID", item.Value.NameID)
                     </td>
                 </tr>
                         }

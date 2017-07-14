@@ -23,8 +23,9 @@ namespace D40.Controllers
             var viewModels = new NameIndexData();
             viewModels.Users = db.Names
                 .Include(i => i.Assets)
-                .Include(i => i.Tickets)
-                .Include(i => i.Software.Select(c => c.Software));
+                .Include(i => i.Software.Select(c => c.Software))
+                .Include(i => i.Tickets);
+            viewModels.Users = viewModels.Users.OrderBy(x => x.Last_Name);
             return View(viewModels);
         }
         public ActionResult Index_Old(string catList, string searchString)
@@ -51,6 +52,8 @@ namespace D40.Controllers
             ViewBag.Show = true;
             ViewBag.newEntry = new List<Models.D40>();
             ViewBag.modEntry = new Dictionary<Models.D40,Models.D40>();
+            var categoryList = new List<string>(4) { "Computer", "Phone", "Printer", "Phone Services" };
+            ViewBag.catList = new SelectList(categoryList);
             int diff = 0;
 
             if (ModelState.IsValid)
@@ -84,7 +87,7 @@ namespace D40.Controllers
                     reader.IsFirstRowAsColumnNames = true;
                     DataSet result = reader.AsDataSet();
                     DataTable dt = result.Tables[0];
-                    List<D40.Models.D40> del = db.D40.ToList();
+                    List<D40.Models.D40> del = db.D40.Where(x=>x.Returned_Date==null).ToList();
                     ViewBag.Show = true;
                     for (int i = 0;i < dt.Rows.Count; i++){
                         Models.D40 entry = new Models.D40();
@@ -111,6 +114,8 @@ namespace D40.Controllers
                         entry.Lumension_Report_Date = System.DBNull.Value.Equals(dt.Rows[i][19]) ? null : (DateTime?)Convert.ToDateTime(dt.Rows[i][19]);
                         entry.Lumension_Computer_Name = System.DBNull.Value.Equals(dt.Rows[i][20]) ? null : (String)dt.Rows[i][20];
                         entry.Lumension_Login_User = System.DBNull.Value.Equals(dt.Rows[i][21]) ? null : (String)dt.Rows[i][21];
+                        entry.Received_Date = DateTime.Now;
+                        entry.Returned_Date = null;
                         Models.D40 d40 = db.D40.SingleOrDefault(x => x.Asset_Tag == entry.Asset_Tag && x.Category == entry.Category);
                         if (d40 != null)
                         {
@@ -133,8 +138,6 @@ namespace D40.Controllers
                     if (diff == 0)
                     {
                         ViewBag.show = false;
-                        var categoryList = new List<string>(4) { "Computer", "Phone", "Printer", "Phone Services" };
-                        ViewBag.catList = new SelectList(categoryList);
                     }
                   
                     return View(db.D40.ToList());
@@ -159,6 +162,7 @@ namespace D40.Controllers
                     {
                         db.Entry(entry).State = EntityState.Modified;
                     }
+                    db.SaveChanges();
                 }
             }
             if (cat != null) { 
@@ -186,13 +190,15 @@ namespace D40.Controllers
                 foreach (D40.Models.D40 entry in del)
                 {
                     int key = entry.NameID;
-                    Name user = db.Names.Find(key);
-                    if (user.Assets.Count == 1)
-                    {
-                        user.Active = false;
-                        db.Entry(user).State = EntityState.Modified;
-                    }
+                    int key2 = entry.ID;
+                    //Name user = db.Names.Find(key);
                     entry.Returned_Date = DateTime.Now;
+                    db.Entry(entry).State = EntityState.Modified;
+                    //if (user.Assets.Count == 1)
+                    //{
+                    //    user.Active = false;
+                    //    db.Entry(user).State = EntityState.Modified;
+                    //}
                 }
             }
             db.SaveChanges();
@@ -222,8 +228,21 @@ namespace D40.Controllers
         }
 
         // GET: D40/Create
-        public ActionResult Create()
+        //new Asset, ID is ID of name.
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Name user = db.Names.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ID = id;
+            ViewBag.FN = user.First_Name;
+            ViewBag.LN = user.Last_Name;
             return View();
         }
 
@@ -232,7 +251,7 @@ namespace D40.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Category,Record_ID,Asset_Tag,Asset_status,Serial_Number,BB_Phone,Refresh_Date,Model,Seat_Type,Service_Level,HHS_Billing,OpDiv,StaffDiv,Office,Last_Name,First_Name,Site_Address,Floor,Room,Lumension_Report_Date,Lumension_Computer_Name,Lumension_Login_User")] Models.D40 d40)
+        public ActionResult Create([Bind(Include = "ID,Category,Record_ID,Asset_Tag,Asset_status,Serial_Number,BB_Phone,Refresh_Date,Model,Seat_Type,Service_Level,HHS_Billing,OpDiv,StaffDiv,Office,Last_Name,First_Name,Site_Address,Floor,Room,Lumension_Report_Date,Lumension_Computer_Name,Lumension_Login_User,Received_Date,NameID,Returned_Date")] Models.D40 d40)
         {
             if (ModelState.IsValid)
             {
@@ -264,7 +283,7 @@ namespace D40.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Category,Record_ID,Asset_Tag,Asset_status,Serial_Number,BB_Phone,Refresh_Date,Model,Seat_Type,Service_Level,HHS_Billing,OpDiv,StaffDiv,Office,Last_Name,First_Name,Site_Address,Floor,Room,Lumension_Report_Date,Lumension_Computer_Name,Lumension_Login_User")] Models.D40 d40)
+        public ActionResult Edit([Bind(Include = "ID,Category,Record_ID,Asset_Tag,Asset_status,Serial_Number,BB_Phone,Refresh_Date,Model,Seat_Type,Service_Level,HHS_Billing,OpDiv,StaffDiv,Office,Last_Name,First_Name,Site_Address,Floor,Room,Lumension_Report_Date,Lumension_Computer_Name,Lumension_Login_User,Received_Date,NameID,Returned_Date")] Models.D40 d40)
         {
             if (ModelState.IsValid)
             {
@@ -293,12 +312,188 @@ namespace D40.Controllers
         // POST: D40/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed([Bind(Include = "ID,Category,Record_ID,Asset_Tag,Asset_status,Serial_Number,BB_Phone,Refresh_Date,Model,Seat_Type,Service_Level,HHS_Billing,OpDiv,StaffDiv,Office,Last_Name,First_Name,Site_Address,Floor,Room,Lumension_Report_Date,Lumension_Computer_Name,Lumension_Login_User,Received_Date,NameID,Returned_Date")] Models.D40 d40)
         {
-            Models.D40 d40 = db.D40.Find(id);
-            db.D40.Remove(d40);
+            db.Entry(d40).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public ActionResult newName()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult newName([Bind(Include = "ID,Last_Name,First_Name,Active,Office")] Name user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Names.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(user);
+        }
+        public ActionResult closeTicket(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            ticket.Closed_Date = DateTime.Now;
+            db.Entry(ticket).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult openTicket(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Name user = db.Names.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ID = id;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult openTicket([Bind(Include = "ID,Ticket_Num,Open_Date,Closed_Date,Description,NameID")]Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Tickets.Add(ticket);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(ticket);
+        }
+        public ActionResult addSoftware(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Name user = db.Names.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ID = id;
+            var software = from t in db.Software
+                               select t;
+            ViewBag.Software = new List<SelectListItem>();
+            foreach (Software s in software)
+            {
+                ViewBag.Software.Add(new SelectListItem { Text = s.title, Value = s.ID.ToString() });
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult addSoftware([Bind(Include = "ID,NameID,SoftwareID")] SoftwareName sn)
+        {
+            if (ModelState.IsValid)
+            {
+                SoftwareName s = db.SoftwareNames.FirstOrDefault(x => x.NameID == sn.NameID && x.SoftwareID == sn.SoftwareID);
+                if (s != null)
+                {
+                    ModelState.AddModelError("Software", "This user already has "+s.Software.title);
+                    ViewBag.ID = sn.ID;
+                    var software = from t in db.Software
+                                   select t;
+                    ViewBag.Software = new List<SelectListItem>();
+                    foreach (Software a in software)
+                    {
+                        ViewBag.Software.Add(new SelectListItem { Text = a.title, Value = a.ID.ToString() });
+                    }
+                    return View(sn);
+                }
+                db.SoftwareNames.Add(sn);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+        public ActionResult removeSoftware(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Name user = db.Names.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.user = user;
+            var software = db.SoftwareNames.Where(x => x.NameID == id).Include(i=>i.Software);
+            return View(software);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult removeSoftware(int id)
+        {
+            SoftwareName software = db.SoftwareNames.Find(id);
+            db.SoftwareNames.Remove(software);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult SoftwareIndex()
+        {
+            var software = db.Software
+                .Include(i => i.Users.Select(c => c.User));
+            return View(software.ToList());
+        }
+        public ActionResult newSoftware()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult newSoftware([Bind(Include = "ID,title,license,num")] Software software)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Software.Add(software);
+                db.SaveChanges();
+                return RedirectToAction("SoftwareIndex");
+            }
+
+            return View(software);
+        }
+        public ActionResult deleteSoftware(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Software software = db.Software.Find(id);
+            if (software == null)
+            {
+                return HttpNotFound();
+            }
+            return View(software);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult deleteSoftware(int id)
+        {
+            Software software = db.Software.Find(id);
+            db.Software.Remove(software);
+            db.SaveChanges();
+            return RedirectToAction("SoftwareIndex");
         }
 
         protected override void Dispose(bool disposing)

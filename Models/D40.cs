@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace D40.Models
 {
@@ -21,13 +22,15 @@ namespace D40.Models
     public class D40
     {
         public int ID { get; set; }
+        [Required()]
         public string Category { get; set; }
-        public int Record_ID { get; set; }
+        public Nullable<int> Record_ID { get; set; }
+        [Required()]
         public string Asset_Tag { get; set; }
         public string Asset_status { get; set; }
         public string Serial_Number { get; set; }
         public string BB_Phone { get; set; }
-        public DateTime Refresh_Date { get; set; }
+        public Nullable<DateTime> Refresh_Date { get; set; }
         public string Model { get; set; }
         public string Seat_Type { get; set; }
         public string Service_Level { get; set; }
@@ -35,7 +38,9 @@ namespace D40.Models
         public string OpDiv { get; set; }
         public string StaffDiv { get; set; }
         public string Office { get; set; }
+        [Required()]
         public string Last_Name { get; set; }
+        [Required()]
         public string First_Name { get; set; }
         public string Site_Address { get; set; }
         public string Floor { get; set; }
@@ -44,7 +49,7 @@ namespace D40.Models
         public string Lumension_Computer_Name { get; set; }
         public string Lumension_Login_User { get; set; }
         public DateTime Received_Date { get; set; }
-        public DateTime Returned_Date { get; set; }
+        public Nullable<DateTime> Returned_Date { get; set; }
         public int NameID { get; set; }
         public virtual Name User { get; set; }
         public override bool Equals(object obj)
@@ -57,8 +62,8 @@ namespace D40.Models
             System.Reflection.PropertyInfo[] properties = typeA.GetProperties();
             foreach (System.Reflection.PropertyInfo propertyInfo in properties)
             {
-                bool IDD = (propertyInfo == typeA.GetProperty("ID"));
-                if (IDD){
+                bool IDD = (propertyInfo == typeA.GetProperty("Category")) || (propertyInfo == typeA.GetProperty("Asset_Tag"))|| (propertyInfo == typeA.GetProperty("Asset_status"))|| (propertyInfo == typeA.GetProperty("Serial_Number"))|| (propertyInfo == typeA.GetProperty("BB_Phone"))|| (propertyInfo == typeA.GetProperty("Refresh_Date"))|| (propertyInfo == typeA.GetProperty("Model"))|| (propertyInfo == typeA.GetProperty("Service_Level"))|| (propertyInfo == typeA.GetProperty("Last_Name"))|| (propertyInfo == typeA.GetProperty("First_Name")) || (propertyInfo == typeA.GetProperty("Returned_Date"));
+                if (!IDD){
                     continue;
                 }
                 object obj1 = propertyInfo.GetValue(this);
@@ -81,9 +86,11 @@ namespace D40.Models
     public class Ticket
     {
         public int ID { get; set; }
+        [Required()]
         public string Ticket_Num { get; set; }
         public DateTime Open_Date { get; set; }
-        public DateTime Closed_Date { get; set; }
+        public Nullable<DateTime> Closed_Date { get; set; }
+        [Required()]
         public string Description { get; set; }
         public int NameID { get; set; }
         public virtual Name User { get; set; }
@@ -91,7 +98,9 @@ namespace D40.Models
     public class Software
     {
         public int ID { get; set; }
+        [Required()]
         public string title { get; set; }
+        [Required()]
         public string license { get; set; }
         public int num { get; set; }
         public virtual ICollection<SoftwareName> Users { get; set; }

@@ -182,37 +182,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706231455514_newDBFKey.cs" />
-    <Compile Include="Migrations\201706231455514_newDBFKey.Designer.cs">
-      <DependentUpon>201706231455514_newDBFKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231847503_newDBFKeyTest.cs" />
-    <Compile Include="Migrations\201706231847503_newDBFKeyTest.Designer.cs">
-      <DependentUpon>201706231847503_newDBFKeyTest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231850453_newDBFKeyTest1.cs" />
-    <Compile Include="Migrations\201706231850453_newDBFKeyTest1.Designer.cs">
-      <DependentUpon>201706231850453_newDBFKeyTest1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231853306_newDBFKeyTest2.cs" />
-    <Compile Include="Migrations\201706231853306_newDBFKeyTest2.Designer.cs">
-      <DependentUpon>201706231853306_newDBFKeyTest2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231856330_newDBFKeyTest3.cs" />
-    <Compile Include="Migrations\201706231856330_newDBFKeyTest3.Designer.cs">
-      <DependentUpon>201706231856330_newDBFKeyTest3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231858515_newDBFKeyTest4.cs" />
-    <Compile Include="Migrations\201706231858515_newDBFKeyTest4.Designer.cs">
-      <DependentUpon>201706231858515_newDBFKeyTest4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231900050_newDBFKeyTest5.cs" />
-    <Compile Include="Migrations\201706231900050_newDBFKeyTest5.Designer.cs">
-      <DependentUpon>201706231900050_newDBFKeyTest5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706231902081_newDBFKeyTest6.cs" />
-    <Compile Include="Migrations\201706231902081_newDBFKeyTest6.Designer.cs">
-      <DependentUpon>201706231902081_newDBFKeyTest6.cs</DependentUpon>
+    <Compile Include="Migrations\201707061723388_fix.cs" />
+    <Compile Include="Migrations\201707061723388_fix.Designer.cs">
+      <DependentUpon>201707061723388_fix.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -298,6 +270,13 @@
     <Content Include="Views\D40\Edit.cshtml" />
     <Content Include="Views\D40\Index_Old.cshtml" />
     <Content Include="Views\D40\Index.cshtml" />
+    <Content Include="Views\D40\newName.cshtml" />
+    <Content Include="Views\D40\openTicket.cshtml" />
+    <Content Include="Views\D40\addSoftware.cshtml" />
+    <Content Include="Views\D40\removeSoftware.cshtml" />
+    <Content Include="Views\D40\SoftwareIndex.cshtml" />
+    <Content Include="Views\D40\newSoftware.cshtml" />
+    <Content Include="Views\D40\deleteSoftware.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -311,29 +290,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706231455514_newDBFKey.resx">
-      <DependentUpon>201706231455514_newDBFKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231847503_newDBFKeyTest.resx">
-      <DependentUpon>201706231847503_newDBFKeyTest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231850453_newDBFKeyTest1.resx">
-      <DependentUpon>201706231850453_newDBFKeyTest1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231853306_newDBFKeyTest2.resx">
-      <DependentUpon>201706231853306_newDBFKeyTest2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231856330_newDBFKeyTest3.resx">
-      <DependentUpon>201706231856330_newDBFKeyTest3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231858515_newDBFKeyTest4.resx">
-      <DependentUpon>201706231858515_newDBFKeyTest4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231900050_newDBFKeyTest5.resx">
-      <DependentUpon>201706231900050_newDBFKeyTest5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706231902081_newDBFKeyTest6.resx">
-      <DependentUpon>201706231902081_newDBFKeyTest6.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707061723388_fix.resx">
+      <DependentUpon>201707061723388_fix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -25,6 +25,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "D40")</li>
+                    <li>@Html.ActionLink("New Employee", "newName", "D40")</li>
+                    <li>@Html.ActionLink("Assets", "Index_Old", "D40")</li>
+                    <li>@Html.ActionLink("Software", "SoftwareIndex", "D40")</li>
                  @*  <!-- <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li> --> *@
                 </ul>
@@ -84,21 +87,12 @@
     $(document).ready(function () {
         $(".scroll").click(function () {
             $(".t").toggleClass("scrolldiv")
-            $(".table").toggleClass("inner window")
+            $(".table").toggleClass("inner")
         });
     });
     $(document).ready(function () {
         $('.inner').floatThead({
-            position: 'absolute',
             scrollContainer: true
-        });
-    });
-    $(document).ready(function () {
-        $('.window').floatThead({
-            position: 'absolute'
-        });
-        $('.window').click(function () {
-            $(this).parent().css("overflow","visible")
         });
     });
     $(document).ready(function () {

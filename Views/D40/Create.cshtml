@@ -130,7 +130,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Last_Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Last_Name, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.LN } })
                 @Html.ValidationMessageFor(model => model.Last_Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -138,7 +138,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.First_Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.FN } })
                 @Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -190,6 +190,14 @@
                 @Html.ValidationMessageFor(model => model.Lumension_Login_User, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Received_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Received_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Received_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.Hidden((string)"NameID",(object) ViewBag.ID)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

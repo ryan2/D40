@@ -1,691 +1,80 @@
-﻿@model IEnumerable<D40.Models.D40>
+﻿@model D40.ViewModels.NameIndexData
 
 @{
-    ViewBag.Title = "D40 List";
+    ViewBag.Title = "Index";
 }
 
-<h2>Upload File</h2>
-
-@using (Html.BeginForm("Index", "D40", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-
-    <div class="form-group">
-        <input type="file" id="dataFile" name="upload" />
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Upload" class="btn btn-default" />
-    </div>
-}
-<button class="hide1 btn btn-default">Toggle Main Table</button>
-<button class="scroll btn btn-default">Toggle Scroll Window</button>
-@Html.ActionLink("Clear Database", "Clear")
-
-
-<h2>Entries</h2>
-
-<p>
-    @Html.ActionLink("Create New Entry", "Create")
-</p>
-
-@{if (ViewBag.show == false)
+<h2>Employee List</h2>
+@{ int i = 1;}
+    @foreach (var item in Model.Users)
     {
-        using (Html.BeginForm("Index", "D40", FormMethod.Get))
+        if (@item.Active)
         {
-            <p>
-                Search Asset Tag or Name: @Html.TextBox("SearchString", (string)ViewBag.search)
-                Category: @Html.DropDownList("catList", "All")
-                <input type="submit" value="Search" class="btn btn-default" />
-            </p>
-        }
-        <div class="scrolldiv t1 t" style="display:none;">
-            <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                    <tr style="background-color:#d9edf7">
-                        <th>Row</th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Category)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Record_ID)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Asset_Tag)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Asset_status)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Serial_Number)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.BB_Phone)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Refresh_Date)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Model)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Seat_Type)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Service_Level)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.HHS_Billing)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.OpDiv)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.StaffDiv)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Office)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Last_Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First_Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Site_Address)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Floor)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Room)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Lumension_Report_Date)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Lumension_Login_User)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                @{ int x = 1;}
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@x</td>
-                            @{ x++;}
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Category)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Record_ID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Asset_Tag)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Asset_status)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Serial_Number)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.BB_Phone)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Refresh_Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Model)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Seat_Type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Service_Level)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.HHS_Billing)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OpDiv)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StaffDiv)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Office)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Last_Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.First_Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Site_Address)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Floor)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Room)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lumension_Report_Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lumension_Computer_Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lumension_Login_User)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                            </td>
-                        </tr>
+            <div>
+                <h3 style="display:inline-block">@i. @item.First_Name @item.Last_Name @item.Office</h3><h3 class="tog closeimg"></h3>
+                <div class="test row">
+                    <div class="col-md-4">
+                    @{ var obj = @item.Assets.Where(x => x.Returned_Date == null);}
+                    <h4>Assets (@obj.Count()):</h4>
+                    <ol>
+                        @foreach (var asset in obj)
+                        {
+                            <li>
+                                <p>Category: @asset.Category</p>
+                                <p>Asset Tag: @asset.Asset_Tag</p>
+                                <p>Asset Model: @asset.Model</p>
+                                @if (asset.Refresh_Date.HasValue)
+                                {
+                                <p>Refresh Date: @asset.Refresh_Date.Value.ToString("MM/dd/yyyy")</p>
+                                }
+                                <p>@Html.ActionLink("Edit", "Edit", new { id = asset.ID }) |
+                                @Html.ActionLink("View Details", "Details", new { id = asset.ID }) |
+                                @Html.ActionLink("Return", "Delete", new { id = asset.ID })</p>
+                            </li>
+                        }
 
-                                }
-                </tbody>
-            </table>
-        </div>
-                                }
-}
-@{ if (ViewBag.show == true)
+                    </ol>
+                        <p>@Html.ActionLink("New Asset", "Create", new { id = item.ID })</p>
+                        </div>
+                                <div class="col-md-4">
+                                    <h4>Software (@item.Software.Count):</h4>
+                                    <ul>
+                                        @foreach (var software in item.Software)
+                                        {
+                                            <li>@software.Software.title</li>
+                                        }
+                                    </ul>
+                                    @Html.ActionLink("Add Software", "addSoftware", new { id = item.ID })
+@{ if (item.Software.Count > 0)
     {
-        <h2>Changed Entries</h2>
-        using (Html.BeginForm("Update", "D40", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-<div class="scrolldiv t">
-    <table class="table table-bordered table-striped table-condensed">
-        <thead>
-            <tr style="background-color:#d9edf7">
-                <th>Row</th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Record_ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Asset_Tag)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Asset_status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Serial_Number)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BB_Phone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Refresh_Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Model)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Seat_Type)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Service_Level)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HHS_Billing)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OpDiv)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StaffDiv)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Office)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Last_Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.First_Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Site_Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Floor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Room)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lumension_Report_Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lumension_Login_User)
-                </th>
-            </tr>
-        </thead>
-        @{ int x = 0;
-           List<D40.Models.D40> mod = new List<D40.Models.D40>();}
-        <tbody>
-            @foreach (KeyValuePair<D40.Models.D40, D40.Models.D40> item in ViewBag.modEntry)
-            {
-                <tr>
-                    @{mod.Add(item.Key);
-                    }
-                    @{ x++;}
-                    <td>@x</td>
-                    <td>
-                        @Html.Hidden((string)"mod[" + (x - 1) + "].ID", item.Key.ID)
-                        @item.Key.Category => @Html.TextBox((string)"mod[" + (x - 1) + "].Category", item.Value.Category)
-                    </td>
-                    <td>
-                        @item.Key.Record_ID => @Html.TextBox((string)"mod[" + (x - 1) + "].Record_ID", item.Value.Record_ID)
-                    </td>
-                    <td>
-                        @item.Key.Asset_Tag => @Html.TextBox((string)"mod[" + (x - 1) + "].Asset_Tag", item.Value.Asset_Tag)
-                    </td>
-                    <td>
-                        @item.Key.Asset_status => @Html.TextBox((string)"mod[" + (x - 1) + "].Asset_status", item.Value.Asset_status)
-                    </td>
-                    <td>
-                        @item.Key.Serial_Number => @Html.TextBox((string)"mod[" + (x - 1) + "].Serial_Number", item.Value.Serial_Number)
-                    </td>
-                    <td>
-                        @item.Key.BB_Phone => @Html.TextBox((string)"mod[" + (x - 1) + "].BB_Phone", item.Value.BB_Phone)
-                    </td>
-                    <td>
-                        @item.Key.Refresh_Date => @Html.TextBox((string)"mod[" + (x - 1) + "].Refresh_Date", item.Value.Refresh_Date)
-                    </td>
-                    <td>
-                        @item.Key.Model => @Html.TextBox((string)"mod[" + (x - 1) + "].Model", item.Value.Model)
-                    </td>
-                    <td>
-                        @item.Key.Seat_Type => @Html.TextBox((string)"mod[" + (x - 1) + "].Seat_Type", item.Value.Seat_Type)
-                    </td>
-                    <td>
-                        @item.Key.Service_Level => @Html.TextBox((string)"mod[" + (x - 1) + "].Service_Level", item.Value.Service_Level)
-                    </td>
-                    <td>
-                        @item.Key.HHS_Billing => @Html.TextBox((string)"mod[" + (x - 1) + "].HHS_Billing", item.Value.HHS_Billing)
-                    </td>
-                    <td>
-                        @item.Key.OpDiv => @Html.TextBox((string)"mod[" + (x - 1) + "].OpDiv", item.Value.OpDiv)
-                    </td>
-                    <td>
-                        @item.Key.StaffDiv => @Html.TextBox((string)"mod[" + (x - 1) + "].StaffDiv", item.Value.StaffDiv)
-                    </td>
-                    <td>
-                        @item.Key.Office => @Html.TextBox((string)"mod[" + (x - 1) + "].Office", item.Value.Office)
-                    </td>
-                    <td>
-                        @item.Key.Last_Name => @Html.TextBox((string)"mod[" + (x - 1) + "].Last_Name", item.Value.Last_Name)
-                    </td>
-                    <td>
-                        @item.Key.First_Name => @Html.TextBox((string)"mod[" + (x - 1) + "].First_Name", item.Value.First_Name)
-                    </td>
-                    <td>
-                        @item.Key.Site_Address => @Html.TextBox((string)"mod[" + (x - 1) + "].Site_Address", item.Value.Site_Address)
-                    </td>
-                    <td>
-                        @item.Key.Floor => @Html.TextBox((string)"mod[" + (x - 1) + "].Floor", item.Value.Floor)
-                    </td>
-                    <td>
-                        @item.Key.Room => @Html.TextBox((string)"mod[" + (x - 1) + "].Room", item.Value.Room)
-                    </td>
-                    <td>
-                       @item.Key.Lumension_Report_Date => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Report_Date", item.Value.Lumension_Report_Date)
-                    </td>
-                    <td>
-                        @item.Key.Lumension_Computer_Name => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Computer_Name", item.Value.Lumension_Computer_Name)
-                    </td>
-                    <td>
-                        @item.Key.Lumension_Login_User => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Login_User", item.Value.Lumension_Login_User)
-                    </td>
-                </tr>
-                        }
-        </tbody>
-        </table>
-    </div>
-<h2>New Entries</h2>
-<div class="scrolldiv t">
-        <table class="table table-bordered table-striped table-condensed">
-           <thead>
-            <tr style="background-color:#d9edf7">
-                <th>Row</th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Record_ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Asset_Tag)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Asset_status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Serial_Number)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BB_Phone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Refresh_Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Model)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Seat_Type)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Service_Level)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HHS_Billing)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OpDiv)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StaffDiv)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Office)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Last_Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.First_Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Site_Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Floor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Room)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lumension_Report_Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lumension_Login_User)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        @{ x = 0;
-            List<D40.Models.D40> cat = ViewBag.newEntry;
+                                    <span>|</span> @Html.ActionLink("Remove Software", "removeSoftware", new { id = item.ID })
+    }
+    }
+                                    </div>
+
+                                    
+                                <div class="col-md-4">
+                                    @{ var tix = @item.Tickets.Where(x => x.Closed_Date == null);}
+                                    <h4>Open Tickets (@tix.Count()):</h4>
+@{ if (tix.Count() > 0)
+    {
+                                    <ol>
+                                        @foreach (var ticket in tix)
+                                        {
+                                            <li>
+                                                <p>Ticket Number: @ticket.Ticket_Num</p>
+                                                <p>Date Opened: @ticket.Open_Date.ToString("MM/dd/yyyy")</p>
+                                                <p>Description: @ticket.Description</p>
+                                                <p>@Html.ActionLink("Close", "closeTicket", new { id = ticket.ID })</p>
+                                            </li>
+                                        }
+                                    </ol>
         }
-        <tbody>
-            @foreach (D40.Models.D40 item in cat)
-            {
-                <tr>
-                    @{ x++;}
-                    <td>@x</td>
-                    <td>
-
-                        @Html.Hidden((string)"cat[" + (x - 1) + "].ID", item.ID)
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Category", item.Category)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Record_ID", item.Record_ID)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Asset_Tag", item.Asset_Tag)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Asset_status", item.Asset_status)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Serial_Number", item.Serial_Number)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].BB_Phone", item.BB_Phone)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Refresh_Date", item.Refresh_Date)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Model", item.Model)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Seat_Type", item.Seat_Type)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Service_Level", item.Service_Level)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].HHS_Billing", item.HHS_Billing)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].OpDiv", item.OpDiv)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].StaffDiv", item.StaffDiv)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Office", item.Office)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Last_Name", item.Last_Name)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].First_Name", item.First_Name)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Site_Address", item.Site_Address)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Floor", item.Floor)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Room", item.Room)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Lumension_Report_Date", item.Lumension_Report_Date)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Lumension_Computer_Name", item.Lumension_Computer_Name)
-                    </td>
-                    <td>
-                        @Html.TextBox((string)"cat[" + (x - 1) + "].Lumension_Login_User", item.Lumension_Login_User)
-                    </td>
-                </tr>
-
-                        }
-        </tbody>
-            </table>
-
-    </div>
-    <h2>Removed Entries</h2>
-    <div class="scrolldiv t">
-        <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <tr style="background-color:#d9edf7">
-                    <th>Row</th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Category)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Record_ID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Asset_Tag)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Asset_status)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Serial_Number)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BB_Phone)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Refresh_Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Model)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Seat_Type)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Service_Level)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.HHS_Billing)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.OpDiv)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StaffDiv)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Office)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Last_Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First_Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Site_Address)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Floor)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Room)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lumension_Report_Date)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Lumension_Login_User)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            @{ x = 0;
-                List<D40.Models.D40> del = ViewBag.del;
-            }
-            <tbody>
-                @foreach (D40.Models.D40 item in del)
-                {
-                    <tr>
-                        @{ x++;}
-                        <td>@x</td>
-                        <td>
-
-                            @Html.Hidden((string)"del[" + (x - 1) + "].ID", item.ID)
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Category", item.Category, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Record_ID", item.Record_ID, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Asset_Tag", item.Asset_Tag, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Asset_status", item.Asset_status, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Serial_Number", item.Serial_Number, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].BB_Phone", item.BB_Phone, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Refresh_Date", item.Refresh_Date, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Model", item.Model, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Seat_Type", item.Seat_Type, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Service_Level", item.Service_Level, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].HHS_Billing", item.HHS_Billing, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].OpDiv", item.OpDiv, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].StaffDiv", item.StaffDiv, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Office", item.Office, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Last_Name", item.Last_Name, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].First_Name", item.First_Name, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Site_Address", item.Site_Address, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Floor", item.Floor, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Room", item.Room, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Lumension_Report_Date", item.Lumension_Report_Date, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Lumension_Computer_Name", item.Lumension_Computer_Name, new { @readonly = "readonly" })
-                        </td>
-                        <td>
-                            @Html.TextBox((string)"del[" + (x - 1) + "].Lumension_Login_User", item.Lumension_Login_User, new { @readonly = "readonly" })
-                        </td>
-                    </tr>
-
-                            }
-            </tbody>
-        </table>
-
-    </div>
-    <div class="form-group">
-        <div>
-            <input type="submit" value="Save" class="btn btn-default" />
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-        </div>
-    </div>
-                            }
-                        }
-}
-
+    }
+                                    @Html.ActionLink("New Ticket", "openTicket", new { id = item.ID })
+                                    </div>
+                                </div>
+                </div>
+        }
+        i++;
+    }

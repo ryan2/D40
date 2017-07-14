@@ -3,7 +3,7 @@ namespace D40.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class newDBFKey : DbMigration
+    public partial class fix : DbMigration
     {
         public override void Up()
         {
@@ -12,13 +12,13 @@ namespace D40.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Category = c.String(),
-                        Record_ID = c.Int(nullable: false),
-                        Asset_Tag = c.String(),
+                        Category = c.String(nullable: false),
+                        Record_ID = c.Int(),
+                        Asset_Tag = c.String(nullable: false),
                         Asset_status = c.String(),
                         Serial_Number = c.String(),
                         BB_Phone = c.String(),
-                        Refresh_Date = c.DateTime(nullable: false),
+                        Refresh_Date = c.DateTime(),
                         Model = c.String(),
                         Seat_Type = c.String(),
                         Service_Level = c.String(),
@@ -26,8 +26,8 @@ namespace D40.Migrations
                         OpDiv = c.String(),
                         StaffDiv = c.String(),
                         Office = c.String(),
-                        Last_Name = c.String(),
-                        First_Name = c.String(),
+                        Last_Name = c.String(nullable: false),
+                        First_Name = c.String(nullable: false),
                         Site_Address = c.String(),
                         Floor = c.String(),
                         Room = c.String(),
@@ -35,7 +35,7 @@ namespace D40.Migrations
                         Lumension_Computer_Name = c.String(),
                         Lumension_Login_User = c.String(),
                         Received_Date = c.DateTime(nullable: false),
-                        Returned_Date = c.DateTime(nullable: false),
+                        Returned_Date = c.DateTime(),
                         NameID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
@@ -47,6 +47,8 @@ namespace D40.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Last_Name = c.String(),
+                        First_Name = c.String(),
                         Active = c.Boolean(nullable: false),
                         Office = c.String(),
                     })
@@ -71,8 +73,8 @@ namespace D40.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        title = c.String(),
-                        license = c.String(),
+                        title = c.String(nullable: false),
+                        license = c.String(nullable: false),
                         num = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
@@ -82,10 +84,10 @@ namespace D40.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Ticket_Num = c.String(),
+                        Ticket_Num = c.String(nullable: false),
                         Open_Date = c.DateTime(nullable: false),
-                        Closed_Date = c.DateTime(nullable: false),
-                        Description = c.String(),
+                        Closed_Date = c.DateTime(),
+                        Description = c.String(nullable: false),
                         NameID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)

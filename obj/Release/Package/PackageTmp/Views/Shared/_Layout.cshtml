@@ -25,6 +25,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "D40")</li>
+                    <li>@Html.ActionLink("New Employee", "newName", "D40")</li>
+                    <li>@Html.ActionLink("Assets", "Index_Old", "D40")</li>
+                    <li>@Html.ActionLink("Software", "SoftwareIndex", "D40")</li>
                  @*  <!-- <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li> --> *@
                 </ul>
@@ -52,7 +55,7 @@
             </div>
         </div>
     </div>*@
-    <div class="container-fluid body-content">
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
@@ -63,10 +66,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jqueryfloat")
     <script>
     $(document).ready(function () {
         $(".hide1").click(function () {
             $(".t1").toggle();
+            $(".floatThead-container").toggle();
         });
     });
     $(document).ready(function () {
@@ -82,6 +87,18 @@
     $(document).ready(function () {
         $(".scroll").click(function () {
             $(".t").toggleClass("scrolldiv")
+            $(".table").toggleClass("inner")
+        });
+    });
+    $(document).ready(function () {
+        $('.inner').floatThead({
+            scrollContainer: true
+        });
+    });
+    $(document).ready(function () {
+        $(".tog").click(function () {
+            $(this).toggleClass("closeimg openimg")
+            $(this).next(".test").toggle();
         });
     });
     </script>
