@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<D40.Models.Software>
 
 @{
-    ViewBag.Title = "SoftwareIndex";
+    ViewBag.Title = "Software List";
 }
 
-<h2>SoftwareIndex</h2>
+<h2>Software List</h2>
 
 <p>
-    @Html.ActionLink("Add Software", "newSoftware")
+    @Html.ActionLink("Add Software", "newSoftware",null,htmlAttributes: new { @class = "btn btn-default" })
 </p>
 <table class="table">
-    <tr>
+    <tr style="background-color:#d9edf7">
         <th>
-            @Html.DisplayNameFor(model => model.title)
+            Software Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.license)
+            License Key
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.num)
+            # of Licenses
         </th>
         <th>Users</th>
         <th></th>

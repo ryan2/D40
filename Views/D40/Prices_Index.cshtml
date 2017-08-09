@@ -1,0 +1,322 @@
+﻿
+
+@{
+    ViewBag.Title = "Assets Cost";
+}
+
+<h2>Assets Cost</h2>
+@using (Html.BeginForm("Prices_Index", "D40", FormMethod.Get))
+{
+    <h4>Enter Date or Date Range to view cost break down for a month or cost over a time period</h4>
+    <p>
+    @Html.TextBox("d", "", htmlAttributes: new { @class = "form-control", @placeholder = "YYYY/MM", @style = "display:inline-block" })
+    @Html.TextBox("d1", "", htmlAttributes: new { @class = "form-control", @placeholder = "YYYY/MM", @style = "display:inline-block" })
+    <input type="submit" value="Search" class="btn btn-default" /></p>
+}
+<p>
+    @Html.ActionLink("Edit Prices", "editPrices",null,htmlAttributes: new { @class = "btn btn-default" })
+</p>
+@if (ViewBag.Range)
+{
+    <table class="table">
+        <tr style="background-color:#d9edf7">
+            <th></th>
+        @{
+            DateTime d = (DateTime)ViewBag.Month;
+            int i;
+            for (i = 0; i < ViewBag.total.Count; i++)
+            {
+                <th>@d.ToString("MMM \\'yy")</th>
+                d = d.AddMonths(1);
+            }
+            }
+            <th>Total</th>
+            </tr>
+
+           
+        <tr>
+            <td>Computers</td>
+            @{decimal sum = 0;
+            }
+            @foreach (decimal item in ViewBag.cc)
+                {
+                <td>@item</td>
+                sum += item;
+
+            }
+            <td>@sum</td>
+        </tr>
+
+        <tr>
+            <td>Phones</td>
+            @{sum = 0;
+            }
+            @foreach (decimal item in ViewBag.pc)
+                {
+                <td>@item</td>
+                sum += item;
+
+            }
+            <td>@sum</td>
+        </tr>
+
+        <tr>
+            <td>Printers</td>
+            @{sum = 0;
+            }
+            @foreach (decimal item in ViewBag.prc)
+                {
+                <td>@item</td>
+                sum += item;
+
+            }
+            <td>@sum</td>
+        </tr>
+
+        <tr>
+            <td>Phone Services</td>
+            @{sum = 0;
+            }
+            @foreach (decimal item in ViewBag.psc)
+                {
+                <td>@item</td>
+                sum += item;
+
+            }
+            <td>@sum</td>
+        </tr>
+        <tr>
+            <th>All Categories</th>
+            @{sum = 0;
+            }
+            @foreach (decimal item in ViewBag.total)
+                {
+                <th>@item</th>
+                sum += item;
+
+            }
+            <th>@sum</th>
+        </tr>
+
+
+
+        </table>
+        }
+        else {
+
+        int c = ViewBag.Cs + ViewBag.Cg + ViewBag.Cp;
+        int p = ViewBag.Phs + ViewBag.Phg + ViewBag.Php;
+        int pr = ViewBag.Prs + ViewBag.Prg + ViewBag.Prp;
+        int ps = ViewBag.Pss + ViewBag.Psg + ViewBag.Prp;
+        int total = c + p + pr + ps;
+        decimal cc = ViewBag.Cs * ViewBag.price.C_S + ViewBag.Cg * ViewBag.price.C_G + ViewBag.Cp * ViewBag.price.C_P;
+        decimal pc = ViewBag.Phs * ViewBag.price.Ph_S + ViewBag.Phg * ViewBag.price.Ph_G + ViewBag.Php * ViewBag.price.Ph_P;
+        decimal prc = ViewBag.Prs * ViewBag.price.Pr_S + ViewBag.Prg * ViewBag.price.Pr_G + ViewBag.Prp * ViewBag.price.Pr_P;
+        decimal psc = ViewBag.Pss * ViewBag.price.Ps_S + ViewBag.Psg * ViewBag.price.Ps_G + ViewBag.PsP * ViewBag.price.Ps_P;
+        decimal tc = cc + pc + prc + psc;
+
+        <table class="table">
+            <tr style="background-color:#d9edf7">
+                <th>Service Level</th>
+                <th>Number</th>
+                <th>Price</th>
+                <th>Total Cost</th>
+            </tr>
+            <tr>
+                <td>
+                    Computer Silver
+                </td>
+                <td>
+                    @ViewBag.Cs
+                </td>
+                <td>@ViewBag.price.C_S</td>
+                <td>
+                    @(ViewBag.Cs * ViewBag.price.C_S)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Computer Gold
+                </td>
+                <td>
+                    @ViewBag.Cg
+                </td>
+                <td>
+                    @ViewBag.price.C_G
+                </td>
+                <td>
+                    @(ViewBag.Cg * ViewBag.price.C_G)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Computer Platinum
+                </td>
+                <td>
+                    @ViewBag.Cp
+                </td>
+                <td>
+                    @ViewBag.price.C_P
+                </td>
+                <td>
+                    @(ViewBag.Cp * ViewBag.price.C_P)
+                </td>
+            </tr>
+            <tr>
+                <th>Computer</th>
+                <th>@c</th>
+                <th></th>
+                <th>@cc</th>
+            </tr>
+            <tr>
+                <td>
+                    Phone Silver
+                </td>
+                <td>
+                    @ViewBag.Phs
+                </td>
+                <td>
+                    @ViewBag.price.Ph_S
+                </td>
+                <td>
+                    @(ViewBag.Phs * ViewBag.price.Ph_S)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone Gold
+                </td>
+                <td>
+                    @ViewBag.Phg
+                </td>
+                <td>
+                    @ViewBag.price.Ph_G
+                </td>
+                <td>
+                    @(ViewBag.Phg * ViewBag.price.Ph_G)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone Platinum
+                </td>
+                <td>
+                    @ViewBag.Php
+                </td>
+                <td>
+                    @ViewBag.price.Ph_P
+                </td>
+                <td>
+                    @(ViewBag.Php * ViewBag.price.Ph_P)
+                </td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <th>@p</th>
+                <th></th>
+                <th>@pc</th>
+            </tr>
+            <tr>
+                <td>
+                    Printer Silver
+                </td>
+                <td>
+                    @ViewBag.Prs
+                </td>
+                <td>
+                    @ViewBag.price.Pr_S
+                </td>
+                <td>
+                    @(ViewBag.Prs * ViewBag.price.Pr_S)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Printer Gold
+                </td>
+                <td>
+                    @ViewBag.Prg
+                </td>
+                <td>
+                    @ViewBag.price.Pr_G
+                </td>
+                <td>
+                    @(ViewBag.Prg * ViewBag.price.Pr_G)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Printer Platinum
+                </td>
+                <td>
+                    @ViewBag.Prp
+                </td>
+                <td>
+                    @ViewBag.price.Pr_P
+                </td>
+                <td>
+                    @(ViewBag.Prp * ViewBag.price.Pr_P)
+                </td>
+            </tr>
+            <tr>
+                <th>Printer</th>
+                <th>@pr</th>
+                <th></th>
+                <th>@prc</th>
+            </tr>
+            <tr>
+                <td>
+                    Phone Services Silver
+                </td>
+                <td>
+                    @ViewBag.Pss
+                </td>
+                <td>
+                    @ViewBag.price.Ps_S
+                </td>
+                <td>
+                    @(ViewBag.Pss * ViewBag.price.Ps_S)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone Services Gold
+                </td>
+                <td>
+                    @ViewBag.Psg
+                </td>
+                <td>
+                    @ViewBag.price.Ps_G
+                </td>
+                <td>
+                    @(ViewBag.Psg * ViewBag.price.Ps_G)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone Services Platinum
+                </td>
+                <td>
+                    @ViewBag.Psp
+                </td>
+                <td>
+                    @ViewBag.price.Ps_P
+                </td>
+                <td>
+                    @(ViewBag.Psp * ViewBag.price.Ps_P)
+                </td>
+            </tr>
+            <tr>
+                <th>Phone Services</th>
+                <th>@ps</th>
+                <th></th>
+                <th>@psc</th>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th>@total</th>
+                <th></th>
+                <th>@tc</th>
+            </tr>
+        </table>
+        }

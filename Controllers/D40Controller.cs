@@ -10,6 +10,8 @@ using D40.Models;
 using D40.ViewModels;
 using Excel;
 using System.IO;
+using ClosedXML.Excel;
+using ClosedXML.Extensions;
 
 namespace D40.Controllers
 {
@@ -154,7 +156,7 @@ namespace D40.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(List<D40.Models.D40> mod, List<D40.Models.D40> cat, List<D40.Models.D40> del)
         {
-            if (mod!= null)
+            if (mod != null)
             {
                 foreach (D40.Models.D40 entry in mod)
                 {
@@ -165,7 +167,8 @@ namespace D40.Controllers
                     db.SaveChanges();
                 }
             }
-            if (cat != null) { 
+            if (cat != null)
+            {
                 foreach (D40.Models.D40 entry in cat)
                 {
                     Name user = db.Names.SingleOrDefault(x => x.Last_Name == entry.Last_Name && x.First_Name == entry.First_Name);
@@ -183,8 +186,8 @@ namespace D40.Controllers
                     {
                         db.D40.Add(entry);
                     }
+                }
             }
-        }
             if (del != null)
             {
                 foreach (D40.Models.D40 entry in del)
@@ -202,7 +205,40 @@ namespace D40.Controllers
                 }
             }
             db.SaveChanges();
-            return RedirectToAction("Index");
+            ViewBag.mod = mod;
+            ViewBag.cat = cat;
+            ViewBag.del = del;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Excel(List<D40.Models.D40> mod, List<D40.Models.D40> cat, List<D40.Models.D40> del)
+        {
+            int i = 1;
+            int len;
+            var wb = new XLWorkbook();
+            var ws = wb.Worksheets.Add("ASPE D40 Modifications");
+            if (mod != null)
+            {
+                ws.Cell(i, 2).Value = "Modifications";
+                len = mod.Count;
+                ws.Cell(i + 1, 1).InsertData(mod);
+                i += len + 1;
+            }
+            if (cat != null)
+            {
+                ws.Cell(i, 2).Value = "Owned Assets Not Included";
+                len = cat.Count;
+                ws.Cell(i + 1, 1).InsertData(cat);
+                i += len + 1;
+            }
+            if (del != null)
+            {
+                ws.Cell(i, 2).Value = "Assets Not in Our Possession";
+                ws.Cell(i + 1, 1).InsertData(del);
+            }
+            ws.Column(1).Delete();
+            return wb.Deliver("ASPED40Review.xlsx");
         }
         public ActionResult Clear()
         {
@@ -240,6 +276,10 @@ namespace D40.Controllers
             {
                 return HttpNotFound();
             }
+            var categoryList = new List<string>(4) { "Computer", "Phone", "Printer", "Phone Services" };
+            ViewBag.catList = new SelectList(categoryList);
+            var sl = new List<string>(3) { "Silver", "Gold", "Platinum" };
+            ViewBag.Service = new SelectList(sl);
             ViewBag.ID = id;
             ViewBag.FN = user.First_Name;
             ViewBag.LN = user.Last_Name;
@@ -320,6 +360,8 @@ namespace D40.Controllers
         }
         public ActionResult newName()
         {
+            var officeList = new List<string>(4) { "IO", "HP", "HSP", "SDP","DALTCP","OPPS" };
+            ViewBag.office = new SelectList(officeList);       
             return View();
         }
         [HttpPost]
@@ -334,6 +376,22 @@ namespace D40.Controllers
             }
 
             return View(user);
+        }
+        public ActionResult removeName(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Name user = db.Names.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            user.Active = false;
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         public ActionResult closeTicket(int? id)
         {
@@ -362,7 +420,13 @@ namespace D40.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ID = id;
+            var assets = db.D40.Where(x => x.NameID == id);
+            ViewBag.assets = new List<SelectListItem>();
+            foreach (D40.Models.D40 s in assets)
+            {
+                ViewBag.assets.Add(new SelectListItem { Text = s.Category + " "+s.Asset_Tag, Value = s.ID.ToString() });
+            }
+            ViewBag.user = user;
             return View();
         }
         [HttpPost]
@@ -389,7 +453,7 @@ namespace D40.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ID = id;
+            ViewBag.user = user;
             var software = from t in db.Software
                                select t;
             ViewBag.Software = new List<SelectListItem>();
@@ -409,7 +473,7 @@ namespace D40.Controllers
                 if (s != null)
                 {
                     ModelState.AddModelError("Software", "This user already has "+s.Software.title);
-                    ViewBag.ID = sn.ID;
+                    ViewBag.user = s.User;
                     var software = from t in db.Software
                                    select t;
                     ViewBag.Software = new List<SelectListItem>();
@@ -494,6 +558,326 @@ namespace D40.Controllers
             db.Software.Remove(software);
             db.SaveChanges();
             return RedirectToAction("SoftwareIndex");
+        }
+        public ActionResult editPrices(DateTime? FY)
+        {
+            if (FY == null)
+            {
+                var priceList = from t in db.Prices
+                                select t;
+                ViewBag.prices = new List<SelectListItem>();
+                foreach (Prices s in priceList)
+                {
+                    ViewBag.prices.Add(new SelectListItem { Text = s.FY.ToString("\\'yy"), Value = s.FY.ToString() });
+                }
+            return View();
+            }
+            Prices price = db.Prices.First(x => x.FY == FY);
+            return View(price);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult editPrices([Bind(Include = "ID,C_G,C_S,C_P,Ph_G,Ph_S,Ph_P,Pr_S,Pr_G,Pr_P,Ps_S,Ps_P,Ps_G,FY")] Prices price)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(price).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Prices_Index");
+            }
+            return View(price);
+        }
+        public ActionResult newPrice(int? FY)
+        {
+            if (FY != null)
+            {
+                DateTime Fiscal = new DateTime((int)FY,1,1);
+                Prices price = db.Prices.FirstOrDefault(x => x.FY == Fiscal);
+                if (price == null)
+                {
+                    ViewBag.FY = Fiscal;
+                    return View();
+                }
+                return RedirectToAction("editPrices", new { @FY = Fiscal });
+            }
+            ViewBag.FYList = new List<SelectListItem>();
+            DateTime now = new DateTime(DateTime.Now.Year, 1, 1);
+            now = now.AddYears(-3);
+            for (int i = 0; i < 6; i++)
+            {
+                ViewBag.FYList.Add(new SelectListItem { Text = now.ToString("\\'yy"), Value = now.Year.ToString() });
+                now = now.AddYears(1);
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult newPrice([Bind(Include = "ID,C_G,C_S,C_P,Ph_G,Ph_S,Ph_P,Pr_S,Pr_G,Pr_P,Ps_S,Ps_P,Ps_G,FY")] Prices price)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Prices.Add(price);
+                db.SaveChanges();
+                return RedirectToAction("Prices_Index");
+            }
+            return View(price);
+        }
+        public ActionResult Prices_Index(DateTime? d, DateTime? d1)
+        {
+            if (d1 != null)
+            {
+                if (d == null)
+                {
+                    d = d1;
+                }
+                //Range Search for Prices_Index
+                else
+                {
+                    List<decimal> cc = new List<decimal>();
+                    List<decimal> pc = new List<decimal>();
+                    List<decimal> prc = new List<decimal>();
+                    List<decimal> psc = new List<decimal>();
+                    List<decimal> total = new List<decimal>();
+                    int i = numMonths((DateTime) d, (DateTime) d1);
+                    for (int j = 0; j < i; j++)
+                    {
+                        DateTime month = (DateTime)d;
+                        month = month.AddMonths(j);
+                        DateTime fy = fiscalYear(month);
+                        IQueryable<D40.Models.D40> Assets = monthAssets(month);
+                        List<decimal> t = assetsPrice(Assets, fy);
+                        total.Add(t[0]);
+                        cc.Add(t[1]);
+                        pc.Add(t[2]);
+                        prc.Add(t[3]);
+                        psc.Add(t[4]);
+                    }
+                    ViewBag.total = total;
+                    ViewBag.cc = cc;
+                    ViewBag.pc = pc;
+                    ViewBag.prc = prc;
+                    ViewBag.psc = psc;
+                    ViewBag.Month = d;
+                    ViewBag.Range = true;
+                    return View();
+                }
+            }
+            ViewBag.Range = false;
+            //Standard Current or single month search
+            IQueryable<D40.Models.D40> curr;
+            if (d != null)
+            {
+                curr = monthAssets((DateTime) d);
+            }
+            else {
+                curr = from t in db.D40
+                           select t;
+                curr = curr.Where(x => x.Returned_Date == null);
+            }
+            var priceList = from t in db.Prices
+                        select t;
+            if (d == null)
+            {
+                d = DateTime.Now;
+            }
+            d = fiscalYear((DateTime)d);
+            ViewBag.price = priceList.First(x=>x.FY == d);
+            ViewBag.Pss = 0;
+            ViewBag.Psg = 0;
+            ViewBag.Psp = 0;
+            ViewBag.Prs = 0;
+            ViewBag.Prg = 0;
+            ViewBag.Prp = 0;
+            ViewBag.Php = 0;
+            ViewBag.Phs = 0;
+            ViewBag.Phg = 0;
+            ViewBag.Cs = 0;
+            ViewBag.Cg = 0;
+            ViewBag.Cp = 0;
+            foreach (Models.D40 asset in curr)
+            {
+                string cat = asset.Category;
+                switch(cat)
+                {
+                    case "Computer":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            ViewBag.Cs += 1;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            ViewBag.Cg += 1;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            ViewBag.Cp += 1;
+                        }
+                        break;
+                    case "Printer":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            ViewBag.Prs += 1;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            ViewBag.Prg += 1;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            ViewBag.Prp += 1;
+                        }
+                        break;
+                    case "Phone":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            ViewBag.Phs += 1;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            ViewBag.Phg += 1;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            ViewBag.Php += 1;
+                        }
+                        break;
+                    case "Phone Services":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            ViewBag.Pss += 1;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            ViewBag.Psg += 1;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            ViewBag.Psp += 1;
+                        }
+                        break;
+                }
+            }
+            return View();
+        }
+
+        public int numMonths(DateTime d1, DateTime d2)
+        {
+            int num;
+            int y1 = d1.Year;
+            int y2 = d2.Year;
+            int m1 = d1.Month;
+            int m2 = d2.Month;
+            if (y1 == y2)
+            {
+                num = m2 - m1 + 1;
+            }
+            else
+            {
+                num = ((y2 - y1) * 12) + m2 - m1 + 1;
+            }
+            return num;
+        }
+        public DateTime fiscalYear(DateTime d)
+        {
+            DateTime fy = new DateTime(d.Year, 1, 1);
+            if (d.Month > 9)
+            {
+                fy = fy.AddYears(1);
+            }
+            return fy;
+        }
+        public IQueryable<D40.Models.D40> monthAssets(DateTime d)
+        {
+            int m = d.Month;
+            int y = d.Year;
+            DateTime start = new DateTime(d.Year, d.Month, DateTime.DaysInMonth(d.Year, d.Month));
+            DateTime end = new DateTime(d.Year,d.Month,1);
+
+            var d40 = from t in db.D40
+                      select t;
+            d40 = d40.Where(x => (x.Received_Date <= start && x.Returned_Date >= end) || (x.Received_Date <= start && x.Returned_Date == null));
+            return d40;
+        }
+        public List<decimal> assetsPrice(IQueryable<D40.Models.D40> assets, DateTime FY)
+        {
+            var priceList = from t in db.Prices
+                            select t;
+            Prices price = priceList.FirstOrDefault(x => x.FY == FY);
+            decimal cc = 0;
+            decimal pc = 0;
+            decimal prc = 0;
+            decimal psc = 0;
+            foreach (D40.Models.D40 asset in assets)
+            {
+                string cat = asset.Category;
+                switch (cat)
+                {
+                    case "Computer":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            cc += price.C_S;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            cc += price.C_G;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            cc += price.C_P;
+                        }
+                        break;
+                    case "Printer":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            prc += price.Pr_S;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            prc += price.Pr_G;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            prc += price.Pr_P;
+                        }
+                        break;
+                    case "Phone":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            pc += price.Ph_S;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            pc += price.Ph_G;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            pc += price.Ph_P;
+                        }
+                        break;
+                    case "Phone Services":
+                        if (asset.Service_Level == "Silver")
+                        {
+                            psc += price.Ps_S;
+                        }
+                        else if (asset.Service_Level == "Gold")
+                        {
+                            psc += price.Ps_G;
+                        }
+                        else if (asset.Service_Level == "Platinum")
+                        {
+                            psc += price.Ps_P;
+                        }
+                        break;
+                }
+            }
+            decimal total = cc + pc + prc + psc;
+            List<decimal> prices = new List<decimal>();
+            prices.Add(total);
+            prices.Add(cc);
+            prices.Add(pc);
+            prices.Add(prc);
+            prices.Add(psc);
+            return prices;
         }
 
         protected override void Dispose(bool disposing)

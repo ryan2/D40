@@ -1,0 +1,231 @@
+﻿@model IEnumerable<D40.Models.D40>
+
+@{
+    ViewBag.Title = "Update";
+}
+<div class="fluid">
+    <h2>Successfully Updated!</h2>
+    @using (Html.BeginForm("Excel", "D40", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Export to Excel" class="btn btn-default" />
+
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr style="background-color:#d9edf7">
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Record_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Asset_Tag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Asset_status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Serial_Number)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BB_Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Refresh_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Model)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Seat_Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Service_Level)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HHS_Billing)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OpDiv)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StaffDiv)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Office)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Last_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Site_Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Floor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Room)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lumension_Report_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lumension_Computer_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lumension_Login_User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Received_Date)
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (int i = 0; i < 3; i++)
+            {
+                int z = 0;
+                string w;
+                List<D40.Models.D40> x;
+                string y;
+                if (i == 0)
+                {
+                    x = ViewBag.mod;
+                    if (x == null)
+                    {
+                        continue;
+                    }
+                    y = "Modifications";
+                    w = "mod";
+                }
+                else if (i == 1)
+                {
+                    x = ViewBag.cat;
+                    if (x == null)
+                    {
+                        continue;
+                    }
+                    y = "Missing Assets";
+                    w = "cat";
+                }
+                else
+                {
+                    x = ViewBag.del;
+                    if (x == null)
+                    {
+                        continue;
+                    }
+                    y = "Assets Not in Our Possession";
+                    w = "del";
+                }
+                <tr style="background-color:lightgray">
+                    <th style="background-color:lightgray" colspan="100">@y</th>
+                </tr>
+                foreach (D40.Models.D40 item in x)
+                {
+                    <tr>
+                        @{ z++;}
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].ID", item.ID)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Category", item.Category)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Record_ID", item.Record_ID)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Asset_Tag", item.Asset_Tag)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Asset_status", item.Asset_status)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Serial_Number", item.Serial_Number)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].BB_Phone", item.BB_Phone)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Refresh_Date", item.Refresh_Date.HasValue ? item.Refresh_Date.Value.ToString("MM/dd/yyyy") : null)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Model", item.Model)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Seat_Type", item.Seat_Type)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Service_Level", item.Service_Level)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].HHS_Billing", item.HHS_Billing)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].OpDiv", item.OpDiv)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].StaffDiv", item.StaffDiv)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Office", item.Office)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Last_Name", item.Last_Name)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].First_Name", item.First_Name)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Site_Address", item.Site_Address)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Floor", item.Floor)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Room", item.Room)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Lumension_Report_Date", item.Lumension_Report_Date)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Lumension_Computer_Name", item.Lumension_Computer_Name)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Lumension_Login_User", item.Lumension_Login_User)
+                        @Html.Hidden((string)@w + "[" + (z - 1) + "].Received_Date", item.Received_Date)
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Record_ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Asset_Tag)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Asset_status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Serial_Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BB_Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Refresh_Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Seat_Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Service_Level)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HHS_Billing)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OpDiv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffDiv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Office)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Last_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.First_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Site_Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Floor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Room)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lumension_Report_Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lumension_Computer_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lumension_Login_User)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Received_Date)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    }
+</div>

@@ -13,7 +13,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:33</publishTime>
     </File>
     <File Include="bin/D40.dll">
-      <publishTime>07/06/2017 13:25:27</publishTime>
+      <publishTime>07/17/2017 13:10:48</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/26/2017 11:30:36</publishTime>
@@ -292,10 +292,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/27/2017 16:15:59</publishTime>
     </File>
     <File Include="Views/D40/Index.cshtml">
-      <publishTime>07/06/2017 13:02:16</publishTime>
+      <publishTime>07/17/2017 13:10:02</publishTime>
     </File>
     <File Include="Views/D40/Index_Old.cshtml">
-      <publishTime>07/06/2017 13:05:55</publishTime>
+      <publishTime>07/10/2017 10:42:04</publishTime>
     </File>
     <File Include="Views/D40/newName.cshtml">
       <publishTime>06/27/2017 15:49:16</publishTime>
@@ -358,7 +358,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:19</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/06/2017 13:25:27</publishTime>
+      <publishTime>07/17/2017 12:42:21</publishTime>
     </File>
   </ItemGroup>
 </Project>

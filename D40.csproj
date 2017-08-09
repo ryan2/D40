@@ -44,8 +44,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.88.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.88.0\lib\net452\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ClosedXML.Extensions.MVC, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.Extensions.Mvc.0.1\lib\net452\ClosedXML.Extensions.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Excel, Version=2.1.2.3, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FastMember.Signed, Version=1.0.0.9, Culture=neutral, PublicKeyToken=9e8f22703bef9a29, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.Signed.1.1.0\lib\net40\FastMember.Signed.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -182,9 +198,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707061723388_fix.cs" />
-    <Compile Include="Migrations\201707061723388_fix.Designer.cs">
-      <DependentUpon>201707061723388_fix.cs</DependentUpon>
+    <Compile Include="Migrations\201707311455139_prices.cs" />
+    <Compile Include="Migrations\201707311455139_prices.Designer.cs">
+      <DependentUpon>201707311455139_prices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708031601415_price FY.cs" />
+    <Compile Include="Migrations\201708031601415_price FY.Designer.cs">
+      <DependentUpon>201708031601415_price FY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708081502147_ticket asset fkey.cs" />
+    <Compile Include="Migrations\201708081502147_ticket asset fkey.Designer.cs">
+      <DependentUpon>201708081502147_ticket asset fkey.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -277,6 +301,10 @@
     <Content Include="Views\D40\SoftwareIndex.cshtml" />
     <Content Include="Views\D40\newSoftware.cshtml" />
     <Content Include="Views\D40\deleteSoftware.cshtml" />
+    <Content Include="Views\D40\editPrices.cshtml" />
+    <Content Include="Views\D40\Prices_Index.cshtml" />
+    <Content Include="Views\D40\Update.cshtml" />
+    <Content Include="Views\D40\newPrice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -290,8 +318,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707061723388_fix.resx">
-      <DependentUpon>201707061723388_fix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707311455139_prices.resx">
+      <DependentUpon>201707311455139_prices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708031601415_price FY.resx">
+      <DependentUpon>201708031601415_price FY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708081502147_ticket asset fkey.resx">
+      <DependentUpon>201708081502147_ticket asset fkey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

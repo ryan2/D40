@@ -70,5 +70,14 @@ c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\obj\Debug\D40.
 c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\bin\Excel.dll
 c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\bin\ICSharpCode.SharpZipLib.dll
 c:\users\ryan.ricks\documents\visual studio 2015\Projects\D40\D40\bin\Excel.pdb
-C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.fix.resources
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.prices.resources
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.csproj.GenerateResource.Cache
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\DocumentFormat.OpenXml.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\FastMember.Signed.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.xml
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\DocumentFormat.OpenXml.xml
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.Extensions.MVC.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.Extensions.MVC.pdb
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.priceFY.resources
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Debug\D40.Migrations.ticketassetfkey.resources

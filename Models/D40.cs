@@ -49,9 +49,12 @@ namespace D40.Models
         public string Lumension_Computer_Name { get; set; }
         public string Lumension_Login_User { get; set; }
         public DateTime Received_Date { get; set; }
+        [DataType(DataType.Date)]
+         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> Returned_Date { get; set; }
         public int NameID { get; set; }
         public virtual Name User { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
         public override bool Equals(object obj)
         {
             return this.Equals(obj as D40);
@@ -93,7 +96,9 @@ namespace D40.Models
         [Required()]
         public string Description { get; set; }
         public int NameID { get; set; }
+        public int? D40ID { get; set; }
         public virtual Name User { get; set; }
+        public virtual D40 Asset { get; set; }
     }
     public class Software
     {
@@ -116,18 +121,20 @@ namespace D40.Models
     }
     public class Prices
     {
-        public static decimal C_G { get; set; }
-        public static decimal C_S { get; set; }
-        public static decimal C_P { get; set; }
-        public static decimal Ph_G { get; set; }
-        public static decimal Ph_S { get; set; }
-        public static decimal Ph_P { get; set; }
-        public static decimal Pr_S { get; set; }
-        public static decimal Pr_P { get; set; }
-        public static decimal Pr_G { get; set; }
-        public static decimal Ps_S { get; set; }
-        public static decimal Ps_P { get; set; }
-        public static decimal Ps_G { get; set; }
+        public int ID { get; set; }
+        public decimal C_G { get; set; }
+        public decimal C_S { get; set; }
+        public decimal C_P { get; set; }
+        public decimal Ph_G { get; set; }
+        public decimal Ph_S { get; set; }
+        public decimal Ph_P { get; set; }
+        public decimal Pr_S { get; set; }
+        public decimal Pr_P { get; set; }
+        public decimal Pr_G { get; set; }
+        public decimal Ps_S { get; set; }
+        public decimal Ps_P { get; set; }
+        public decimal Ps_G { get; set; }
+        public DateTime FY { get; set; }
 
     }
 
@@ -138,6 +145,6 @@ namespace D40.Models
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Software> Software { get; set; }
         public DbSet<SoftwareName> SoftwareNames { get; set; }
-        public Prices Prices { get; set; }
+        public DbSet<Prices> Prices { get; set; }
     }
 }

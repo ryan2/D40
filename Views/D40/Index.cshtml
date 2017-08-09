@@ -13,6 +13,7 @@
             <div>
                 <h3 style="display:inline-block">@i. @item.First_Name @item.Last_Name @item.Office</h3><h3 class="tog closeimg"></h3>
                 <div class="test row">
+                    <p>@Html.ActionLink("Remove User", "removeName", new { id = item.ID })</p>
                     <div class="col-md-4">
                     @{ var obj = @item.Assets.Where(x => x.Returned_Date == null);}
                     <h4>Assets (@obj.Count()):</h4>
@@ -75,6 +76,6 @@
                                     </div>
                                 </div>
                 </div>
+            i++;
         }
-        i++;
     }

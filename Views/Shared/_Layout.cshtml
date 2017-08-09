@@ -28,6 +28,7 @@
                     <li>@Html.ActionLink("New Employee", "newName", "D40")</li>
                     <li>@Html.ActionLink("Assets", "Index_Old", "D40")</li>
                     <li>@Html.ActionLink("Software", "SoftwareIndex", "D40")</li>
+                    <li>@Html.ActionLink("Prices", "Prices_Index", "D40")</li>
                  @*  <!-- <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li> --> *@
                 </ul>
@@ -59,7 +60,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>@DateTime.Now.ToString("dd/MM/yyyy") - ASPE Intranet</p>
+            <p>@DateTime.Now.ToString("MM/dd/yyyy") - ASPE Intranet</p>
         </footer>
     </div>
 
@@ -68,6 +69,8 @@
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/jqueryfloat")
     <script>
+        $('div.fluid').parent().addClass("container-fluid");
+        $('div.fluid').parent().removeClass("container");
     $(document).ready(function () {
         $(".hide1").click(function () {
             $(".t1").toggle();
@@ -75,19 +78,10 @@
         });
     });
     $(document).ready(function () {
-        $(".hide2").click(function () {
-            $(".t2").toggle();
-        });
-    });
-    $(document).ready(function () {
-        $(".hide3").click(function () {
-            $(".t3").toggle();
-        });
-    });
-    $(document).ready(function () {
         $(".scroll").click(function () {
             $(".t").toggleClass("scrolldiv")
             $(".table").toggleClass("inner")
+            $(".fluid2").parent().toggleClass("container-fluid container")
         });
     });
     $(document).ready(function () {
