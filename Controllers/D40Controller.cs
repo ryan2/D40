@@ -12,6 +12,9 @@ using Excel;
 using System.IO;
 using ClosedXML.Excel;
 using ClosedXML.Extensions;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace D40.Controllers
 {
@@ -20,14 +23,33 @@ namespace D40.Controllers
         private D40DBContext db = new D40DBContext();
 
         // GET: D40
-        public ActionResult Index()
+        public ActionResult Index(string catList, string searchString)
         {
+            ViewBag.search = searchString;
+            var categoryList = new List<string>(3) { "Active","Inactive","All"};
+            ViewBag.catList = new SelectList(categoryList, catList);
             var viewModels = new NameIndexData();
             viewModels.Users = db.Names
                 .Include(i => i.Assets)
                 .Include(i => i.Software.Select(c => c.Software))
-                .Include(i => i.Tickets);
+                .Include(i => i.Tickets.Select(c=>c.Asset));
             viewModels.Users = viewModels.Users.OrderBy(x => x.Last_Name);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                viewModels.Users = viewModels.Users.Where(s => s.First_Name.Contains(searchString) || s.Last_Name.Contains(searchString));
+            }
+            if (String.IsNullOrEmpty(catList))
+            {
+                catList = "Active";
+            }
+            if (catList == "Active")
+            {
+                viewModels.Users = viewModels.Users.Where(s => s.Active);
+            }
+            else if (catList == "Inactive")
+            {
+                viewModels.Users = viewModels.Users.Where(s => !s.Active);
+            }
             return View(viewModels);
         }
         public ActionResult Index_Old(string catList, string searchString)
@@ -43,7 +65,7 @@ namespace D40.Controllers
             }
             if (!String.IsNullOrEmpty(catList))
             {
-                entries = entries.Where(s => s.Category.Contains(catList));
+                entries = entries.Where(s => s.Category.Equals(catList));
             }
             return View(entries.ToList());
         }
@@ -54,6 +76,7 @@ namespace D40.Controllers
             ViewBag.Show = true;
             ViewBag.newEntry = new List<Models.D40>();
             ViewBag.modEntry = new Dictionary<Models.D40,Models.D40>();
+            ViewBag.all = new List<Models.D40>();
             var categoryList = new List<string>(4) { "Computer", "Phone", "Printer", "Phone Services" };
             ViewBag.catList = new SelectList(categoryList);
             int diff = 0;
@@ -85,6 +108,10 @@ namespace D40.Controllers
                         ViewBag.Show = false;
                         return View(db.D40.ToList());
                     }
+                    //
+                    upload.SaveAs(Path.GetTempPath() + upload.FileName);
+
+                    //
 
                     reader.IsFirstRowAsColumnNames = true;
                     DataSet result = reader.AsDataSet();
@@ -119,6 +146,7 @@ namespace D40.Controllers
                         entry.Received_Date = DateTime.Now;
                         entry.Returned_Date = null;
                         Models.D40 d40 = db.D40.SingleOrDefault(x => x.Asset_Tag == entry.Asset_Tag && x.Category == entry.Category);
+                        ViewBag.all.Add(entry);
                         if (d40 != null)
                         {
                             if (d40.Equals(entry))
@@ -154,91 +182,220 @@ namespace D40.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(List<D40.Models.D40> mod, List<D40.Models.D40> cat, List<D40.Models.D40> del)
+        public ActionResult Update(List<D40.Models.D40> mod,List<bool> modc, List<D40.Models.D40> cat, List<bool> catc, List<D40.Models.D40> del,List<bool> delc, List<D40.Models.D40> all)
         {
+            ViewBag.mod = new List<D40.Models.D40>();
+            ViewBag.cat = new List<D40.Models.D40>();
+            ViewBag.del = new List<D40.Models.D40>();
+            ViewBag.all = all;
             if (mod != null)
             {
+                int i = 0;
                 foreach (D40.Models.D40 entry in mod)
                 {
-                    if (ModelState.IsValid)
+                    if (modc[i] == true)
                     {
-                        db.Entry(entry).State = EntityState.Modified;
+                        if (ModelState.IsValid)
+                        {
+                            db.Entry(entry).State = EntityState.Modified;
+                        }
+                        db.SaveChanges();
                     }
-                    db.SaveChanges();
+                    else
+                    {
+                        ViewBag.mod.Add(entry);
+                    }
+                    i++;
                 }
             }
             if (cat != null)
             {
+                int i = 0;
                 foreach (D40.Models.D40 entry in cat)
                 {
-                    Name user = db.Names.SingleOrDefault(x => x.Last_Name == entry.Last_Name && x.First_Name == entry.First_Name);
-                    if (user == null)
+                    
+                    if (catc[i] == true)
                     {
-                        user = new Name();
-                        user.First_Name = entry.First_Name;
-                        user.Last_Name = entry.Last_Name;
-                        user.Active = true;
-                        db.Names.Add(user);
-                        db.SaveChanges();
+                        Name user = db.Names.SingleOrDefault(x => x.Last_Name == entry.Last_Name && x.First_Name == entry.First_Name);
+                        if (user == null)
+                        {
+                            user = new Name();
+                            user.First_Name = entry.First_Name;
+                            user.Last_Name = entry.Last_Name;
+                            user.Active = true;
+                            db.Names.Add(user);
+                            db.SaveChanges();
+                        }
+                        entry.NameID = user.ID;
+                        if (ModelState.IsValid)
+                        {
+                            db.D40.Add(entry);
+                        }
                     }
-                    entry.NameID = user.ID;
-                    if (ModelState.IsValid)
+                    else
                     {
-                        db.D40.Add(entry);
+                        ViewBag.cat.Add(entry);
                     }
+                    i++;
                 }
             }
             if (del != null)
             {
+                int i = 0;
                 foreach (D40.Models.D40 entry in del)
                 {
-                    int key = entry.NameID;
-                    int key2 = entry.ID;
-                    //Name user = db.Names.Find(key);
-                    entry.Returned_Date = DateTime.Now;
-                    db.Entry(entry).State = EntityState.Modified;
-                    //if (user.Assets.Count == 1)
-                    //{
-                    //    user.Active = false;
-                    //    db.Entry(user).State = EntityState.Modified;
-                    //}
+                    if (delc[i] == true)
+                    {
+                        int key = entry.NameID;
+                        int key2 = entry.ID;
+                        //Name user = db.Names.Find(key);
+                        entry.Returned_Date = DateTime.Now;
+                        db.Entry(entry).State = EntityState.Modified;
+                        //if (user.Assets.Count == 1)
+                        //{
+                        //    user.Active = false;
+                        //    db.Entry(user).State = EntityState.Modified;
+                        //}
+                    }
+                    else
+                    {
+                        ViewBag.del.Add(entry);
+                    }
+                    i++;
                 }
             }
             db.SaveChanges();
-            ViewBag.mod = mod;
-            ViewBag.cat = cat;
-            ViewBag.del = del;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Excel(List<D40.Models.D40> mod, List<D40.Models.D40> cat, List<D40.Models.D40> del)
+        public ActionResult Excel(List<D40.Models.D40> mod, List<D40.Models.D40> cat, List<D40.Models.D40> del, List<D40.Models.Disputes> dis, List<D40.Models.D40> all)
         {
+            if (mod == null && cat == null && del == null)
+            {
+                ModelState.AddModelError("File", "There are no changes to the D40");
+                return View("Update");
+            }
             int i = 1;
+            int z = 0;
             int len;
             var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("ASPE D40 Modifications");
+            System.Reflection.PropertyInfo[] properties = typeof(Models.D40).GetProperties();
+            string[] prop = new string[25];
+            foreach (System.Reflection.PropertyInfo property in properties)
+            {
+                if (property.Name == "NameID")
+                {
+                    break;
+                }
+                prop[z] =property.Name;
+                z++;
+            }
+            var array = new List<string[]>();
+            array.Add(prop);
+            ws.Range(1, 2,1,36).AsRange().AddToNamed("Properties");
+            ws.Cell(1, 1).InsertData(array);
+            ws.Cell(1, 28).Value = "Change Description";
+            ws.Cell(1, 29).Value = "Change Reason";
+            ws.Cell(1, 30).Value = "Change Field To";
+            ws.Cell(1, 31).Value = "Ticket Number (for removes)";
+            ws.Cell(1, 32).Value = "Date of Call to Change";
+            ws.Cell(1, 33).Value = "Comments";
+            ws.Cell(1, 34).Value = "LM Response";
+            ws.Cell(1, 35).Value = "LM Rationale";
+            ws.Cell(1, 36).Value = "Remove Asset";
+            //
+            i += 1;
+            var list = new List<D40.Models.D40>();
+            var list2 = new List<D40.Models.Disputes>();
+            foreach (D40.Models.D40 item in all)
+            {
+                list.Add(item);
+                ws.Cell(i, 1).InsertData(list);
+                D40.Models.Disputes temp = dis.Find(t => t.Asset_Tag == item.Asset_Tag);
+                if (temp!= null)
+                {
+                    list2.Add(temp);
+                    ws.Cell(i, 27).InsertData(list2);
+                    list2.Remove(temp);
+                }
+                list.Remove(item);
+                i++;
+            }
+
+            //
+            /*
             if (mod != null)
             {
-                ws.Cell(i, 2).Value = "Modifications";
                 len = mod.Count;
                 ws.Cell(i + 1, 1).InsertData(mod);
-                i += len + 1;
+                i += len+1;
             }
             if (cat != null)
             {
-                ws.Cell(i, 2).Value = "Owned Assets Not Included";
                 len = cat.Count;
-                ws.Cell(i + 1, 1).InsertData(cat);
-                i += len + 1;
+                ws.Cell(i, 1).InsertData(cat);
+                i += len;
             }
             if (del != null)
             {
-                ws.Cell(i, 2).Value = "Assets Not in Our Possession";
-                ws.Cell(i + 1, 1).InsertData(del);
+                ws.Cell(i, 1).InsertData(del);
             }
+            if (dis != null)
+            {
+                ws.Cell(2, 27).InsertData(dis);
+            }
+            */
+            ws.Column(26).Delete();
+            ws.Column(26).Delete();
+            ws.Column(35).Delete();
+            ws.Column(35).Delete();
+            ws.Column(24).Delete();
+            ws.Column(24).Delete();
             ws.Column(1).Delete();
+            // Prepare the style for the Properties
+            var propStyle = wb.Style;
+            propStyle.Font.Bold = true;
+            propStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            propStyle.Fill.BackgroundColor = XLColor.LightBlue;
+            wb.NamedRanges.NamedRange("Properties").Ranges.Style = propStyle;
+            ws.Columns().AdjustToContents();
+            foreach (D40.Models.Disputes dispute in dis)
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Disputes.Add(dispute);
+                }
+            }
+            db.SaveChanges();
             return wb.Deliver("ASPED40Review.xlsx");
+        }
+        public ActionResult disputes_view(DateTime? Date, string Tag,bool? sort)
+        {
+            if (!sort.HasValue)
+            {
+                sort = false;
+            }
+            var disputes = from t in db.Disputes
+                           select t;
+            if (Date.HasValue)
+            {
+                disputes = disputes.Where(x => x.Date.Month == Date.Value.Month && x.Date.Year == Date.Value.Year);
+                ViewBag.Date = Date.ToString();
+            }
+            if (!String.IsNullOrEmpty(Tag))
+            {
+                disputes = disputes.Where(x => x.Asset_Tag == Tag);
+                ViewBag.Tag = Tag;
+            }
+            if (sort.Value)
+            {
+                disputes = disputes.OrderBy(t => t.Asset_Tag);
+            }
+            ViewBag.sort = sort;
+
+            return View(disputes.ToList());
         }
         public ActionResult Clear()
         {
@@ -377,6 +534,55 @@ namespace D40.Controllers
 
             return View(user);
         }
+        public ActionResult editName(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Name user = db.Names.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var officeList = new List<string>(4) { "IO", "HP", "HSP", "SDP", "DALTCP", "OPPS" };
+            if (!String.IsNullOrEmpty(user.Office))
+            {
+                ViewBag.office = new SelectList(officeList, user.Office);
+            }
+            else
+            {
+                ViewBag.office = new SelectList(officeList);
+            }
+            return View(user);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult editName([Bind(Include = "ID,Last_Name,First_Name,Active,Office")] Name user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+        public ActionResult deleteName(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Name user = db.Names.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            db.Names.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public ActionResult removeName(int? id)
         {
             if (id == null)
@@ -431,7 +637,7 @@ namespace D40.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult openTicket([Bind(Include = "ID,Ticket_Num,Open_Date,Closed_Date,Description,NameID")]Ticket ticket)
+        public ActionResult openTicket([Bind(Include = "ID,Ticket_Num,Open_Date,Closed_Date,Description,NameID,D40ID")]Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -514,10 +720,25 @@ namespace D40.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult SoftwareIndex()
+        public ActionResult SoftwareIndex(string catList, string searchString)
         {
+            ViewBag.search = searchString;
+            var categoryList = new List<string>();
             var software = db.Software
                 .Include(i => i.Users.Select(c => c.User));
+            foreach (Software s in software)
+            {
+                categoryList.Add(s.title);
+            }
+            ViewBag.catList = new SelectList(categoryList, catList);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                software = software.Where(s => s.Users.FirstOrDefault(x => x.User.First_Name.Contains(searchString)) != null || s.Users.FirstOrDefault(x => x.User.Last_Name.Contains(searchString)) != null);
+            }
+            if (!String.IsNullOrEmpty(catList))
+            {
+                software = software.Where(s => s.title == catList);
+            }
             return View(software.ToList());
         }
         public ActionResult newSoftware()
@@ -535,6 +756,31 @@ namespace D40.Controllers
                 return RedirectToAction("SoftwareIndex");
             }
 
+            return View(software);
+        }
+        public ActionResult updateSoftware(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Software software = db.Software.Find(id);
+            if (software == null)
+            {
+                return HttpNotFound();
+            }
+            return View(software);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult updateSoftware([Bind(Include = "ID,title,license,num")] Software software)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(software).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("SoftwareIndex");
+            }
             return View(software);
         }
         public ActionResult deleteSoftware(int? id)
@@ -565,6 +811,7 @@ namespace D40.Controllers
             {
                 var priceList = from t in db.Prices
                                 select t;
+                priceList = priceList.OrderBy(t => t.FY);
                 ViewBag.prices = new List<SelectListItem>();
                 foreach (Prices s in priceList)
                 {
@@ -577,7 +824,7 @@ namespace D40.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult editPrices([Bind(Include = "ID,C_G,C_S,C_P,Ph_G,Ph_S,Ph_P,Pr_S,Pr_G,Pr_P,Ps_S,Ps_P,Ps_G,FY")] Prices price)
+        public ActionResult editPrices([Bind(Include = "ID,C_G,C_S,C_P,Ph_G,Ph_S,Ph_P,Pr_S,Pr_G,Pr_P,Ps_S,Ps_P,Ps_G,FY,D_S,D_G,D_P")] Prices price)
         {
             if (ModelState.IsValid)
             {
@@ -603,7 +850,7 @@ namespace D40.Controllers
             ViewBag.FYList = new List<SelectListItem>();
             DateTime now = new DateTime(DateTime.Now.Year, 1, 1);
             now = now.AddYears(-3);
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 ViewBag.FYList.Add(new SelectListItem { Text = now.ToString("\\'yy"), Value = now.Year.ToString() });
                 now = now.AddYears(1);
@@ -612,7 +859,7 @@ namespace D40.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult newPrice([Bind(Include = "ID,C_G,C_S,C_P,Ph_G,Ph_S,Ph_P,Pr_S,Pr_G,Pr_P,Ps_S,Ps_P,Ps_G,FY")] Prices price)
+        public ActionResult newPrice([Bind(Include = "ID,C_G,C_S,C_P,Ph_G,Ph_S,Ph_P,Pr_S,Pr_G,Pr_P,Ps_S,Ps_P,Ps_G,FY,D_S.D_G,D_P")] Prices price)
         {
             if (ModelState.IsValid)
             {

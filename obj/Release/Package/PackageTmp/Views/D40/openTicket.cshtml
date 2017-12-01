@@ -4,7 +4,7 @@
     ViewBag.Title = "New Ticket";
 }
 
-<h2>openTicket</h2>
+<h2>New Ticket for @ViewBag.user.First_Name @ViewBag.user.Last_Name</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,11 +12,10 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Ticket</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Ticket_Num, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Ticket_Num,"Ticket Number", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Ticket_Num, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Ticket_Num, "", new { @class = "text-danger" })
@@ -24,9 +23,17 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Open_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Open_Date,"Date Opened", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Open_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Open_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.D40ID, "Asset", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("D40ID", (List<SelectListItem>) ViewBag.assets,"",htmlAttributes : new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Open_Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,7 +47,7 @@
             </div>
         </div>
 
-        @Html.Hidden((string)"NameID", (object)ViewBag.ID)
+        @Html.Hidden((string)"NameID", (object)ViewBag.user.ID)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -50,7 +57,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {

@@ -97,8 +97,10 @@ namespace D40.Models
         public string Description { get; set; }
         public int NameID { get; set; }
         public int? D40ID { get; set; }
+        public int? DisputesID { get; set; }
         public virtual Name User { get; set; }
         public virtual D40 Asset { get; set; }
+        public virtual Disputes dispute { get; set; }
     }
     public class Software
     {
@@ -125,6 +127,9 @@ namespace D40.Models
         public decimal C_G { get; set; }
         public decimal C_S { get; set; }
         public decimal C_P { get; set; }
+        public decimal D_S { get; set; }
+        public decimal D_G { get; set; }
+        public decimal D_P { get; set; }
         public decimal Ph_G { get; set; }
         public decimal Ph_S { get; set; }
         public decimal Ph_P { get; set; }
@@ -138,6 +143,22 @@ namespace D40.Models
 
     }
 
+    public class Disputes
+    {
+        public int ID { get; set; }
+        public string Change_Description { get; set; }
+        public string Change_Reason { get; set; }
+        public string Change_Field_To { get; set; }
+        public virtual ICollection<Ticket> ticket { get; set; }
+        public Nullable<DateTime> Date_Call_Change { get; set; }
+        public string Comments { get; set; }
+        public string LM_Response { get; set; }
+        public string LM_Rationale { get; set; }
+        public string Remove_Asset { get; set; }
+        public DateTime Date { get; set; }
+        public string Asset_Tag { get; set; }
+    }
+
     public class D40DBContext : DbContext
     {
         public DbSet<D40> D40 { get; set; }
@@ -146,5 +167,6 @@ namespace D40.Models
         public DbSet<Software> Software { get; set; }
         public DbSet<SoftwareName> SoftwareNames { get; set; }
         public DbSet<Prices> Prices { get; set; }
+        public DbSet<Disputes> Disputes { get; set; }
     }
 }

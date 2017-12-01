@@ -5,15 +5,26 @@
 }
 
 <h2>Employee List</h2>
+
+<p>@Html.ActionLink("New Employee", "newName", "D40", null, htmlAttributes: new { @class = "btn btn-default" })</p>
+
+@using (Html.BeginForm("Index", "D40", FormMethod.Get))
+        {
+<p>
+    Search Name: @Html.TextBox("SearchString", (string)ViewBag.search, htmlAttributes: new { @class = "form-control", @style = "display:inline-block" })
+    Category: @Html.DropDownList("catList", null, htmlAttributes: new { @class = "form-control", @style = "display:inline-block" })
+    <input type="submit" value="Search" class="btn btn-default" />
+</p>
+        }
 @{ int i = 1;}
     @foreach (var item in Model.Users)
     {
-        if (@item.Active)
-        {
-            <div>
-                <h3 style="display:inline-block">@i. @item.First_Name @item.Last_Name @item.Office</h3><h3 class="tog closeimg"></h3>
+            <div style="padding-left:30px;">
+                <h3 style="display:inline-block;">@i. @item.First_Name @item.Last_Name @item.Office</h3><h3 class="tog closeimg"></h3>
                 <div class="test row">
-                    <p>@Html.ActionLink("Remove User", "removeName", new { id = item.ID })</p>
+                    <hr />
+                    <p>@Html.ActionLink("Offboard User", "removeName", new { id = item.ID }) |
+                    @Html.ActionLink("Edit User", "editName", new { id = item.ID })</p>
                     <div class="col-md-4">
                     @{ var obj = @item.Assets.Where(x => x.Returned_Date == null);}
                     <h4>Assets (@obj.Count()):</h4>
@@ -66,6 +77,9 @@
                                                 <p>Ticket Number: @ticket.Ticket_Num</p>
                                                 <p>Date Opened: @ticket.Open_Date.ToString("MM/dd/yyyy")</p>
                                                 <p>Description: @ticket.Description</p>
+                                                @if (ticket.Asset != null) {
+                                                    <p>Asset: @ticket.Asset.Category - @ticket.Asset.Asset_Tag</p>
+                                                }
                                                 <p>@Html.ActionLink("Close", "closeTicket", new { id = ticket.ID })</p>
                                             </li>
                                         }
@@ -77,5 +91,4 @@
                                 </div>
                 </div>
             i++;
-        }
     }

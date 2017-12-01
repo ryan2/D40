@@ -1,0 +1,77 @@
+﻿@model IEnumerable<D40.Models.Disputes>
+
+@{
+    ViewBag.Title = "D40 Disputes";
+}
+
+<h2>D40 Disputes</h2>
+
+        @using (Html.BeginForm("disputes_view", "D40", FormMethod.Get))
+        {
+<p>
+    Date: @Html.TextBox("Date", (string)ViewBag.date, htmlAttributes: new { @class = "form-control", @style = "display:inline-block", @placeholder = "YYYY/MM" })
+    Asset Tag: @Html.TextBox("Tag", (string)ViewBag.tag, htmlAttributes: new { @class = "form-control", @style = "display:inline-block" })<br />
+    Sort by Asset Tag: @Html.CheckBox("sort",(bool) ViewBag.sort, htmlAttributes: new {@style = "display:inline-block" })
+    <input type="submit" value="Search" class="btn btn-default" />
+
+</p>
+        }
+<table class="table table-bordered table-striped table-condensed">
+    <thead>
+    <tr style="background-color:#d9edf7">
+        <th>
+            Date
+        </th>
+        <th>
+            Asset Tag
+        </th>
+        <th>
+            Change Description
+        </th>
+        <th>
+            Change Reason
+        </th>
+        <th>
+            Change Field To
+        </th>
+        <th>
+            Date of Call to Change
+        </th>
+        <th>
+            Comments
+        </th>
+        <th>
+            Remove Asset
+        </th>
+    </tr>
+        </thead>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asset_Tag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Change_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Change_Reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Change_Field_To)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date_Call_Change)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remove_Asset)
+        </td>
+    </tr>
+}
+
+</table>

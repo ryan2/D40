@@ -71,4 +71,11 @@ C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D4
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.dll
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.pdb
 C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.csprojResolveAssemblyReference.cache
-C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.Migrations.fix.resources
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.Extensions.MVC.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\DocumentFormat.OpenXml.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\FastMember.Signed.dll
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.xml
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\ClosedXML.Extensions.MVC.pdb
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\bin\DocumentFormat.OpenXml.xml
+C:\Users\ryan.ricks\Documents\Visual Studio 2015\Projects\D40\D40\obj\Release\D40.Migrations.disputestoserver.resources

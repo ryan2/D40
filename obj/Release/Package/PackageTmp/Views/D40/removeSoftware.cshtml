@@ -4,12 +4,12 @@
     ViewBag.Title = "removeSoftware";
 }
 
-<h2>Remove Software from User</h2>
+<h2>Remove Software</h2>
 
 <h3>Choose the software to remove from @ViewBag.user.First_Name @ViewBag.user.Last_Name.</h3>
 <div>
     <hr />
-    <table class="table table-bordered table-striped table-condensed">
+    <table class="table table-bordered">
         <thead>
             <tr style="background-color:#d9edf7">
             <th>
@@ -42,5 +42,5 @@
         </tbody>
         </table>
 
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </div>

@@ -134,6 +134,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -198,17 +199,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707311455139_prices.cs" />
-    <Compile Include="Migrations\201707311455139_prices.Designer.cs">
-      <DependentUpon>201707311455139_prices.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708031601415_price FY.cs" />
-    <Compile Include="Migrations\201708031601415_price FY.Designer.cs">
-      <DependentUpon>201708031601415_price FY.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081502147_ticket asset fkey.cs" />
-    <Compile Include="Migrations\201708081502147_ticket asset fkey.Designer.cs">
-      <DependentUpon>201708081502147_ticket asset fkey.cs</DependentUpon>
+    <Compile Include="Migrations\201711201429208_prod update.cs" />
+    <Compile Include="Migrations\201711201429208_prod update.Designer.cs">
+      <DependentUpon>201711201429208_prod update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -220,6 +213,40 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\animate.min.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\demo.css" />
+    <Content Include="assets\css\light-bootstrap-dashboard.css" />
+    <Content Include="assets\css\pe-icon-7-stroke.css" />
+    <Content Include="assets\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="assets\img\default-avatar.png" />
+    <Content Include="assets\img\faces\face-0.jpg" />
+    <Content Include="assets\img\faces\face-1.jpg" />
+    <Content Include="assets\img\faces\face-2.jpg" />
+    <Content Include="assets\img\faces\face-3.jpg" />
+    <Content Include="assets\img\faces\face-4.jpg" />
+    <Content Include="assets\img\faces\face-5.jpg" />
+    <Content Include="assets\img\faces\face-6.jpg" />
+    <Content Include="assets\img\faces\face-7.jpg" />
+    <Content Include="assets\img\faces\tim_vector.jpe" />
+    <Content Include="assets\img\favicon.ico" />
+    <Content Include="assets\img\loading-bubbles.svg" />
+    <Content Include="assets\img\mask.png" />
+    <Content Include="assets\img\new_logo.png" />
+    <Content Include="assets\img\sidebar-1.jpg" />
+    <Content Include="assets\img\sidebar-2.jpg" />
+    <Content Include="assets\img\sidebar-3.jpg" />
+    <Content Include="assets\img\sidebar-4.jpg" />
+    <Content Include="assets\img\sidebar-5.jpg" />
+    <Content Include="assets\img\tim_80x80.png" />
+    <Content Include="assets\js\bootstrap-checkbox-radio-switch.js" />
+    <Content Include="assets\js\bootstrap-notify.js" />
+    <Content Include="assets\js\bootstrap-select.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\chartist.min.js" />
+    <Content Include="assets\js\demo.js" />
+    <Content Include="assets\js\jquery-1.10.2.js" />
+    <Content Include="assets\js\light-bootstrap-dashboard.js" />
     <Content Include="Content\app.css" />
     <Content Include="Content\aspe-logo-sm.png" />
     <Content Include="Content\aspe-logo.png" />
@@ -237,6 +264,61 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\aspelogo.zip" />
     <Content Include="Content\aspe_logo.psd" />
+    <Content Include="assets\.DS_Store" />
+    <Content Include="assets\css\.DS_Store" />
+    <Content Include="assets\fonts\.DS_Store" />
+    <Content Include="assets\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="assets\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="assets\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="assets\img\.DS_Store" />
+    <Content Include="assets\img\faces\.DS_Store" />
+    <Content Include="assets\sass\.DS_Store" />
+    <Content Include="assets\sass\lbd\.DS_Store" />
+    <Content Include="assets\sass\lbd\mixins\_buttons.scss" />
+    <Content Include="assets\sass\lbd\mixins\_cards.scss" />
+    <Content Include="assets\sass\lbd\mixins\_chartist.scss" />
+    <Content Include="assets\sass\lbd\mixins\_icons.scss" />
+    <Content Include="assets\sass\lbd\mixins\_inputs.scss" />
+    <Content Include="assets\sass\lbd\mixins\_labels.scss" />
+    <Content Include="assets\sass\lbd\mixins\_morphing-buttons.scss" />
+    <Content Include="assets\sass\lbd\mixins\_navbars.scss" />
+    <Content Include="assets\sass\lbd\mixins\_social-buttons.scss" />
+    <Content Include="assets\sass\lbd\mixins\_tabs.scss" />
+    <Content Include="assets\sass\lbd\mixins\_transparency.scss" />
+    <Content Include="assets\sass\lbd\mixins\_vendor-prefixes.scss" />
+    <Content Include="assets\sass\lbd\_alerts.scss" />
+    <Content Include="assets\sass\lbd\_buttons.scss" />
+    <Content Include="assets\sass\lbd\_cards.scss" />
+    <Content Include="assets\sass\lbd\_carousel.scss" />
+    <Content Include="assets\sass\lbd\_chartist.scss" />
+    <Content Include="assets\sass\lbd\_checkbox-radio-switch.scss" />
+    <Content Include="assets\sass\lbd\_collapse.scss" />
+    <Content Include="assets\sass\lbd\_datepicker.scss" />
+    <Content Include="assets\sass\lbd\_dropdown.scss" />
+    <Content Include="assets\sass\lbd\_flexisel.scss" />
+    <Content Include="assets\sass\lbd\_footers.scss" />
+    <Content Include="assets\sass\lbd\_icons.scss" />
+    <Content Include="assets\sass\lbd\_inputs.scss" />
+    <Content Include="assets\sass\lbd\_labels.scss" />
+    <Content Include="assets\sass\lbd\_media.scss" />
+    <Content Include="assets\sass\lbd\_misc.scss" />
+    <Content Include="assets\sass\lbd\_mixins.scss" />
+    <Content Include="assets\sass\lbd\_modal.scss" />
+    <Content Include="assets\sass\lbd\_morphing-buttons.scss" />
+    <Content Include="assets\sass\lbd\_navbars.scss" />
+    <Content Include="assets\sass\lbd\_progress-bars.scss" />
+    <Content Include="assets\sass\lbd\_responsive.scss" />
+    <Content Include="assets\sass\lbd\_sections.scss" />
+    <Content Include="assets\sass\lbd\_sidebar-and-main-panel.scss" />
+    <Content Include="assets\sass\lbd\_sliders.scss" />
+    <Content Include="assets\sass\lbd\_social-buttons.scss" />
+    <Content Include="assets\sass\lbd\_tables.scss" />
+    <Content Include="assets\sass\lbd\_tabs-navs-pagination.scss" />
+    <Content Include="assets\sass\lbd\_tags.scss" />
+    <Content Include="assets\sass\lbd\_tooltips-and-popovers.scss" />
+    <Content Include="assets\sass\lbd\_typography.scss" />
+    <Content Include="assets\sass\lbd\_variables.scss" />
+    <Content Include="assets\sass\light-bootstrap-dashboard.scss" />
     <None Include="Properties\PublishProfiles\D40.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -305,6 +387,9 @@
     <Content Include="Views\D40\Prices_Index.cshtml" />
     <Content Include="Views\D40\Update.cshtml" />
     <Content Include="Views\D40\newPrice.cshtml" />
+    <Content Include="Views\D40\disputes_view.cshtml" />
+    <Content Include="Views\D40\editName.cshtml" />
+    <Content Include="Views\D40\updateSoftware.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,14 +403,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707311455139_prices.resx">
-      <DependentUpon>201707311455139_prices.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708031601415_price FY.resx">
-      <DependentUpon>201708031601415_price FY.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708081502147_ticket asset fkey.resx">
-      <DependentUpon>201708081502147_ticket asset fkey.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711201429208_prod update.resx">
+      <DependentUpon>201711201429208_prod update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

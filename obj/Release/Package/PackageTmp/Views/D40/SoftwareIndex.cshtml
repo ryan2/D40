@@ -1,24 +1,32 @@
 ﻿@model IEnumerable<D40.Models.Software>
 
 @{
-    ViewBag.Title = "SoftwareIndex";
+    ViewBag.Title = "Software List";
 }
 
-<h2>SoftwareIndex</h2>
+<h2>Software List</h2>
 
 <p>
-    @Html.ActionLink("Add Software", "newSoftware")
+    @Html.ActionLink("Add Software", "newSoftware",null,htmlAttributes: new { @class = "btn btn-default" })
 </p>
+@using (Html.BeginForm("SoftwareIndex", "D40", FormMethod.Get))
+        {
+<p>
+    Search User Name: @Html.TextBox("SearchString", (string)ViewBag.search, htmlAttributes: new { @class = "form-control", @style = "display:inline-block" })
+    Software Title: @Html.DropDownList("catList", null, "All", htmlAttributes: new { @class = "form-control", @style = "display:inline-block" })
+    <input type="submit" value="Search" class="btn btn-default" />
+</p>
+        }
 <table class="table">
-    <tr>
+    <tr style="background-color:#d9edf7">
         <th>
-            @Html.DisplayNameFor(model => model.title)
+            Software Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.license)
+            License Key
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.num)
+            # of Licenses
         </th>
         <th>Users</th>
         <th></th>
@@ -38,11 +46,18 @@
         <td>
             @foreach (D40.Models.SoftwareName sn in item.Users)
             {
+                if (sn.Equals(item.Users.Last())){
+                    <span>@sn.User.First_Name</span> <span>@sn.User.Last_Name</span>
+                }
+            else{
                 <span>@sn.User.First_Name</span> <span>@sn.User.Last_Name, </span>
+            }
             }
         </td>
         <td>
-            @Html.ActionLink("Delete Software", "deleteSoftware", new { id=item.ID})
+            @Html.ActionLink("Update Software", "updateSoftware", new { id = item.ID }) |
+            @Html.ActionLink("Delete Software", "deleteSoftware", new { id = item.ID })
+            
         </td>
     </tr>
 }

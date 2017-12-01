@@ -9,11 +9,287 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <_PublishTargetUrl>C:\Users\ryan.ricks\Documents\D40Test</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="assets/.DS_Store">
+      <publishTime>01/19/2017 16:08:42</publishTime>
+    </File>
+    <File Include="assets/css/.DS_Store">
+      <publishTime>12/28/2015 15:37:28</publishTime>
+    </File>
+    <File Include="assets/css/animate.min.css">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/css/bootstrap.min.css">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/css/demo.css">
+      <publishTime>01/19/2016 21:35:22</publishTime>
+    </File>
+    <File Include="assets/css/light-bootstrap-dashboard.css">
+      <publishTime>01/19/2017 16:14:24</publishTime>
+    </File>
+    <File Include="assets/css/pe-icon-7-stroke.css">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/fonts/.DS_Store">
+      <publishTime>01/19/2016 11:30:46</publishTime>
+    </File>
+    <File Include="assets/fonts/Pe-icon-7-stroke.eot">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/fonts/Pe-icon-7-stroke.svg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/fonts/Pe-icon-7-stroke.ttf">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/fonts/Pe-icon-7-stroke.woff">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/.DS_Store">
+      <publishTime>01/19/2016 21:28:36</publishTime>
+    </File>
+    <File Include="assets/img/default-avatar.png">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/.DS_Store">
+      <publishTime>01/19/2016 21:28:28</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-0.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-1.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-2.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-3.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-4.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-5.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-6.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/face-7.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/faces/tim_vector.jpe">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/favicon.ico">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/loading-bubbles.svg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/mask.png">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/new_logo.png">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/sidebar-1.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/sidebar-2.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/sidebar-3.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/sidebar-4.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/sidebar-5.jpg">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/img/tim_80x80.png">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/js/bootstrap-checkbox-radio-switch.js">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/js/bootstrap-notify.js">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/js/bootstrap-select.js">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/js/bootstrap.min.js">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/js/chartist.min.js">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/js/demo.js">
+      <publishTime>01/17/2016 15:53:58</publishTime>
+    </File>
+    <File Include="assets/js/jquery-1.10.2.js">
+      <publishTime>12/01/2015 14:12:00</publishTime>
+    </File>
+    <File Include="assets/js/light-bootstrap-dashboard.js">
+      <publishTime>01/19/2017 16:14:32</publishTime>
+    </File>
+    <File Include="assets/sass/.DS_Store">
+      <publishTime>01/19/2016 21:35:56</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/.DS_Store">
+      <publishTime>01/19/2016 21:35:56</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_buttons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_cards.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_chartist.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_icons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_inputs.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_labels.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_morphing-buttons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_navbars.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_social-buttons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_tabs.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_transparency.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/mixins/_vendor-prefixes.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_alerts.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_buttons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_cards.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_carousel.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_chartist.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_checkbox-radio-switch.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_collapse.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_datepicker.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_dropdown.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_flexisel.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_footers.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_icons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_inputs.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_labels.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_media.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_misc.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_mixins.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_modal.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_morphing-buttons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_navbars.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_progress-bars.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_responsive.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_sections.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_sidebar-and-main-panel.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_sliders.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_social-buttons.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_tables.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_tabs-navs-pagination.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_tags.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_tooltips-and-popovers.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_typography.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/lbd/_variables.scss">
+      <publishTime>01/19/2016 21:42:42</publishTime>
+    </File>
+    <File Include="assets/sass/light-bootstrap-dashboard.scss">
+      <publishTime>01/19/2017 16:14:20</publishTime>
+    </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>05/26/2017 11:30:33</publishTime>
     </File>
+    <File Include="bin/ClosedXML.dll">
+      <publishTime>08/02/2017 13:14:01</publishTime>
+    </File>
+    <File Include="bin/ClosedXML.Extensions.MVC.dll">
+      <publishTime>08/02/2017 16:37:07</publishTime>
+    </File>
     <File Include="bin/D40.dll">
-      <publishTime>07/17/2017 13:10:48</publishTime>
+      <publishTime>11/20/2017 09:24:24</publishTime>
+    </File>
+    <File Include="bin/DocumentFormat.OpenXml.dll">
+      <publishTime>08/02/2017 13:13:57</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/26/2017 11:30:36</publishTime>
@@ -23,6 +299,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Excel.dll">
       <publishTime>05/26/2017 15:37:51</publishTime>
+    </File>
+    <File Include="bin/FastMember.Signed.dll">
+      <publishTime>08/02/2017 13:14:00</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
       <publishTime>05/26/2017 15:37:49</publishTime>
@@ -136,7 +415,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:33</publishTime>
     </File>
     <File Include="Content/app.css">
-      <publishTime>06/26/2017 11:38:54</publishTime>
+      <publishTime>11/06/2017 10:14:04</publishTime>
     </File>
     <File Include="Content/aspe-logo-sm.png">
       <publishTime>03/19/2017 17:03:16</publishTime>
@@ -190,7 +469,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:19</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>05/26/2017 15:37:52</publishTime>
+      <publishTime>08/02/2017 16:37:09</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>05/26/2017 11:30:27</publishTime>
@@ -235,7 +514,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:34</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>06/09/2017 11:10:39</publishTime>
+      <publishTime>11/06/2017 08:30:25</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>05/26/2017 11:30:35</publishTime>
@@ -274,52 +553,73 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:35</publishTime>
     </File>
     <File Include="Views/D40/addSoftware.cshtml">
-      <publishTime>06/28/2017 16:43:40</publishTime>
+      <publishTime>08/09/2017 14:04:47</publishTime>
     </File>
     <File Include="Views/D40/Create.cshtml">
-      <publishTime>07/06/2017 10:47:54</publishTime>
+      <publishTime>08/09/2017 15:12:11</publishTime>
     </File>
     <File Include="Views/D40/Delete.cshtml">
-      <publishTime>06/27/2017 16:42:24</publishTime>
+      <publishTime>08/03/2017 11:59:37</publishTime>
     </File>
     <File Include="Views/D40/deleteSoftware.cshtml">
-      <publishTime>07/03/2017 13:42:16</publishTime>
+      <publishTime>08/09/2017 12:32:22</publishTime>
     </File>
     <File Include="Views/D40/Details.cshtml">
       <publishTime>05/26/2017 13:29:07</publishTime>
     </File>
+    <File Include="Views/D40/disputes_view.cshtml">
+      <publishTime>10/16/2017 12:37:45</publishTime>
+    </File>
     <File Include="Views/D40/Edit.cshtml">
       <publishTime>06/27/2017 16:15:59</publishTime>
     </File>
+    <File Include="Views/D40/editName.cshtml">
+      <publishTime>10/16/2017 10:43:26</publishTime>
+    </File>
+    <File Include="Views/D40/editPrices.cshtml">
+      <publishTime>08/28/2017 11:24:05</publishTime>
+    </File>
     <File Include="Views/D40/Index.cshtml">
-      <publishTime>07/17/2017 13:10:02</publishTime>
+      <publishTime>11/06/2017 10:07:17</publishTime>
     </File>
     <File Include="Views/D40/Index_Old.cshtml">
-      <publishTime>07/10/2017 10:42:04</publishTime>
+      <publishTime>10/16/2017 10:08:01</publishTime>
     </File>
     <File Include="Views/D40/newName.cshtml">
-      <publishTime>06/27/2017 15:49:16</publishTime>
+      <publishTime>08/09/2017 12:52:36</publishTime>
+    </File>
+    <File Include="Views/D40/newPrice.cshtml">
+      <publishTime>08/28/2017 11:25:15</publishTime>
     </File>
     <File Include="Views/D40/newSoftware.cshtml">
-      <publishTime>07/03/2017 13:30:40</publishTime>
+      <publishTime>08/09/2017 12:28:24</publishTime>
     </File>
     <File Include="Views/D40/openTicket.cshtml">
-      <publishTime>07/06/2017 10:50:09</publishTime>
+      <publishTime>08/09/2017 14:29:00</publishTime>
+    </File>
+    <File Include="Views/D40/Prices_Index.cshtml">
+      <publishTime>08/09/2017 10:31:49</publishTime>
     </File>
     <File Include="Views/D40/removeSoftware.cshtml">
-      <publishTime>06/30/2017 14:54:23</publishTime>
+      <publishTime>08/09/2017 14:06:19</publishTime>
     </File>
     <File Include="Views/D40/SoftwareIndex.cshtml">
-      <publishTime>07/03/2017 13:45:27</publishTime>
+      <publishTime>10/16/2017 11:26:23</publishTime>
+    </File>
+    <File Include="Views/D40/Update.cshtml">
+      <publishTime>10/05/2017 12:07:34</publishTime>
+    </File>
+    <File Include="Views/D40/updateSoftware.cshtml">
+      <publishTime>10/16/2017 11:26:53</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>05/26/2017 11:30:19</publishTime>
+      <publishTime>11/06/2017 12:10:35</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>05/26/2017 11:30:19</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/26/2017 11:30:19</publishTime>
+      <publishTime>11/06/2017 10:28:34</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>05/26/2017 11:30:35</publishTime>
@@ -346,7 +646,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:35</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/05/2017 13:26:07</publishTime>
+      <publishTime>11/06/2017 11:51:29</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>05/26/2017 11:30:35</publishTime>
@@ -358,7 +658,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2017 11:30:19</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/17/2017 12:42:21</publishTime>
+      <publishTime>11/20/2017 09:24:25</publishTime>
     </File>
   </ItemGroup>
 </Project>

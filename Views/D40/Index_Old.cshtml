@@ -26,10 +26,6 @@
 
 <h2>Entries</h2>
 
-<p>
-    @Html.ActionLink("Create New Entry", "Create")
-</p>
-
 @{if (ViewBag.show == false)
     {
         using (Html.BeginForm("Index_Old", "D40", FormMethod.Get))
@@ -213,6 +209,7 @@
     <table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr style="background-color:#d9edf7">
+                <th>Update?</th>
                 <th>Row</th>
                 <th>
                     @Html.DisplayNameFor(model => model.Category)
@@ -280,10 +277,14 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Lumension_Login_User)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Returned_Date)
+                </th>
             </tr>
         </thead>
         @{ int x = 0;
-           List<D40.Models.D40> mod = new List<D40.Models.D40>();}
+           List<D40.Models.D40> mod = new List<D40.Models.D40>();
+            List<bool> modc = new List<bool>();}
         <tbody>
             @foreach (KeyValuePair<D40.Models.D40, D40.Models.D40> item in ViewBag.modEntry)
             {
@@ -291,6 +292,7 @@
                     @{mod.Add(item.Key);
                     }
                     @{ x++;}
+                    <td>@Html.CheckBox((string)"modc["+(x-1)+"]", false)</td>
                     <td>@x</td>
                     <td>
                         @Html.Hidden((string)"mod[" + (x - 1) + "].ID", item.Key.ID)
@@ -359,8 +361,9 @@
                     <td>
                         @item.Key.Lumension_Login_User => @Html.TextBox((string)"mod[" + (x - 1) + "].Lumension_Login_User", item.Value.Lumension_Login_User)
                         @Html.Hidden((string)"mod[" + (x - 1) + "].NameID", item.Key.NameID)
-                        @Html.Hidden((string)"mod[" + (x - 1) + "].Received_Date", DateTime.Now)
+                        @Html.Hidden((string)"mod[" + (x - 1) + "].Received_Date", item.Key.Received_Date)
                     </td>
+                    <td>@item.Key.Returned_Date => @Html.TextBox((string)"mod[" + (x - 1) + "].Returned_Date", item.Value.Returned_Date)</td>
                 </tr>
                         }
         </tbody>
@@ -371,6 +374,7 @@
         <table class="table table-bordered table-striped table-condensed">
            <thead>
             <tr style="background-color:#d9edf7">
+                <th>Update?</th>
                 <th>Row</th>
                 <th>
                     @Html.DisplayNameFor(model => model.Category)
@@ -438,17 +442,18 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Lumension_Login_User)
                 </th>
-                <th></th>
             </tr>
         </thead>
         @{ x = 0;
             List<D40.Models.D40> cat = ViewBag.newEntry;
+            List<bool> catc = new List<bool>();
         }
         <tbody>
             @foreach (D40.Models.D40 item in cat)
             {
                 <tr>
                     @{ x++;}
+                    <td>@Html.CheckBox((string)"catc[" + (x - 1) + "]", false)</td>
                     <td>@x</td>
                     <td>
 
@@ -531,6 +536,7 @@
         <table class="table table-bordered table-striped table-condensed">
             <thead>
                 <tr style="background-color:#d9edf7">
+                    <th>Update?</th>
                     <th>Row</th>
                     <th>
                         @Html.DisplayNameFor(model => model.Category)
@@ -603,12 +609,14 @@
             </thead>
             @{ x = 0;
                 List<D40.Models.D40> del = ViewBag.del;
+                List<bool> delc = new List<bool>();
             }
             <tbody>
                 @foreach (D40.Models.D40 item in del)
                 {
                     <tr>
                         @{ x++;}
+                        <td>@Html.CheckBox((string)"delc[" + (x - 1) + "]", false)</td>
                         <td>@x</td>
                         <td>
 
@@ -685,8 +693,78 @@
                             }
             </tbody>
         </table>
+        @{ x = 0;
+            List<D40.Models.D40> all = ViewBag.all;
+        }
+        @foreach (D40.Models.D40 item in all)
+        {
+            x++;
 
-    </div>
+            @Html.Hidden((string)"all[" + (x - 1) + "].ID", item.ID)
+            @Html.Hidden((string)"all[" + (x - 1) + "].Category", item.Category)           
+                @Html.Hidden((string)"all[" + (x - 1) + "].Record_ID", item.Record_ID)
+            
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Asset_Tag", item.Asset_Tag)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Asset_status", item.Asset_status)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Serial_Number", item.Serial_Number)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].BB_Phone", item.BB_Phone)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Refresh_Date", item.Refresh_Date.HasValue ? item.Refresh_Date.Value.ToString("MM/dd/yyyy") : null)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Model", item.Model)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Seat_Type", item.Seat_Type)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Service_Level", item.Service_Level)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].HHS_Billing", item.HHS_Billing)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].OpDiv", item.OpDiv)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].StaffDiv", item.StaffDiv)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Office", item.Office)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Last_Name", item.Last_Name)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].First_Name", item.First_Name)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Site_Address", item.Site_Address)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Floor", item.Floor)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Room", item.Room)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Lumension_Report_Date", item.Lumension_Report_Date)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Lumension_Computer_Name", item.Lumension_Computer_Name)
+                    
+                    
+                        @Html.Hidden((string)"all[" + (x - 1) + "].Lumension_Login_User", item.Lumension_Login_User)
+                        }
+</div>
     <div class="form-group">
         <div>
             <input type="submit" value="Save" class="btn btn-default" />

@@ -1,31 +1,99 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Asset Management Tool";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<h3>Asset Management Tool</h3>
+<h4>Employee Count: @ViewBag.active | Total Assets: @ViewBag.totalassets  |  Open Tickets: @ViewBag.tickets</h4>
+<div id="piechart" style="display:inline-block;border:1px solid #dddfe2;border-radius:4px;margin-right:10px;"></div>
+<div style="display:inline-block;width:520px;height:300px;padding:12px;border:1px solid #dddfe2;border-radius:4px;background-color:white; ">
+    <div class="row">
+        <div class="col-md-6">
+        <h4>Disputes</h4>
+    </div>
+    </div>
 </div>
+<div id="orgchart" style="display:inline-block;width:520px;height:300px;padding-top:50px;border:1px solid #dddfe2;border-radius:4px;background-color:white;"></div>
+<script type="text/javascript">
+// Load google charts
+    google.charts.load('current', { 'packages': ['corechart','orgchart'] });
+google.charts.setOnLoadCallback(drawOrgChart);
+google.charts.setOnLoadCallback(drawAssetChart);
+// Draw the chart and set the chart values
+function drawAssetChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Assets', 'Count'],
+  ['Computer', @ViewBag.computer],
+  ['Phone', @ViewBag.phone],
+  ['Phone Services', @ViewBag.phoneservices],
+  ['Printer', @ViewBag.printer],
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Assets', 'width':520, 'height':300, 'is3D':true};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+function drawOrgChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Name');
+    data.addColumn('string', 'Manager');
+
+    // For each orgchart box, provide the name, manager, and tooltip to show.
+    data.addRows([
+      ['Employee', ''],
+      ['Invoices', ''],
+      ['Disputes',''],
+      ['Assets', 'Employee'],
+      ['Software', 'Employee'],
+      ['Tickets','Employee']
+    ]);
+
+    // Create the chart.
+    var chart = new google.visualization.OrgChart(document.getElementById('orgchart'));
+    // Draw the chart, setting the allowHtml option to true for the tooltips.
+    chart.draw(data, { allowHtml: true });
+    }
+</script>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Manage Employees</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Onboard or Offboard new or leaving employees, update employee information or view and update assets, software licenses and tickets associated with an employee.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="D40">Employees &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Manage D40 Assets</h2>
+        <p>View and make updates to assets or upload the latest D40 to compare and dispute</p>
+        <p><a class="btn btn-default" href="D40/Index_Old">Assets &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Invoices</h2>
+        <p>View current cost breakdowns by asset type, add updated pricing information, or view historical invoices and project future invoices</p>
+        <p><a class="btn btn-default" href="D40/Prices_Index">Invoices &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Manage Software</h2>
+        <p>
+            Manage software licenses
+        </p>
+        <p><a class="btn btn-default" href="D40/SoftwareIndex">Software &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>D40 Disputes</h2>
+        <p>View previously disputed D40 records</p>
+        <p><a class="btn btn-default" href="D40/disputes_view">Assets &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Register</h2>
+        <p></p>
+        <p><a class="btn btn-default" href="D40/Prices_Index">Register Now &raquo;</a></p>
     </div>
 </div>

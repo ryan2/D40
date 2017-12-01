@@ -1,18 +1,17 @@
 ﻿@model D40.Models.SoftwareName
 
 @{
-    ViewBag.Title = "addSoftware";
+    ViewBag.Title = "Add Software";
 }
 
-<h2>addSoftware</h2>
+<h2>Add Software for @ViewBag.user.First_Name @ViewBag.user.Last_Name</h2>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden((string)"NameID", (object)ViewBag.ID)
+    @Html.Hidden((string)"NameID", (object)ViewBag.user.ID)
     <div class="form-horizontal">
-        <h4>SoftwareName</h4>
         <hr />
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
@@ -26,14 +25,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Add" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {
